@@ -1,0 +1,23 @@
+# GitHub Pages: publicar SOLO el sitio estático que está en la raíz.
+# Evita que el generador procese el código de la aplicación (server/, public/, etc.)
+plugins: []
+markdown: kramdown
+include:
+  - css
+  - js
+  - assets
+exclude:
+  - public
+  - server
+  - scripts
+  - static-src
+  - tests
+  - docs
+  - node_modules
+  - Dockerfile
+  - docker-compose.yml
+  - package.json
+  - package-lock.json
+  - README.md
+  - PUBLICAR-EN-GITHUB-PAGES.md
+  - nexo-app-standalone.html
