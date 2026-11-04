@@ -119,6 +119,7 @@ function panelA(a) {
 /* ----------------------------- MODULO B ----------------------------- */
 function panelB(b) {
   return `
+  <p class="eyebrow">${esc(b.title)}</p>
   <div class="card">
     <h3>Orientación vocacional y desarrollo profesional</h3>
     <p class="hint">${esc(b.vocational.headline)} — ${esc(b.vocational.note)}</p>
@@ -175,6 +176,7 @@ function panelB(b) {
 /* ----------------------------- MODULO C ----------------------------- */
 function panelC(c) {
   return `
+  <p class="eyebrow">${esc(c.title)}</p>
   <div class="card">
     <h3>${esc(c.biotype)} · ${esc(c.mizaj)}</h3>
     <p class="hint">${esc(c.framework)}</p>
@@ -202,6 +204,7 @@ function panelC(c) {
 /* ----------------------------- MODULO D ----------------------------- */
 function panelD(d) {
   return `
+  <p class="eyebrow">${esc(d.title)}</p>
   <div class="card">
     <h3>Microhábitos de hoy</h3>
     <p class="hint">${esc(d.model)} · presupuesto ${d.minutesBudget} min/día</p>

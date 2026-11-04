@@ -32,6 +32,16 @@ export class TestRunner {
     this.answers = this.load();
     this.index = 0;
     this.busy = false;
+    this.pendingTimer = null;
+  }
+
+  /** Cancela cualquier auto-avance pendiente (evita saltarse pantallas). */
+  cancelPending() {
+    if (this.pendingTimer) {
+      clearTimeout(this.pendingTimer);
+      this.pendingTimer = null;
+    }
+    this.busy = false;
   }
 
   load() {
@@ -78,6 +88,7 @@ export class TestRunner {
 
   jumpTo(index) {
     if (index < 0 || index >= this.items.length) return;
+    this.cancelPending();
     this.index = index;
     this.render();
   }
@@ -114,6 +125,7 @@ export class TestRunner {
   }
 
   go(delta) {
+    this.cancelPending();
     const next = this.index + delta;
     if (next < 0) return;
     if (next >= this.items.length) return this.finish();
@@ -121,11 +133,19 @@ export class TestRunner {
     this.render();
   }
 
+  /**
+   * Auto-avance con salvaguardas: se cancela si la persona navega antes,
+   * y solo avanza si sigue en la misma pantalla donde se programó.
+   */
   advance(delay = 300) {
     if (this.busy) return;
     this.busy = true;
-    setTimeout(() => {
+    const programmedAt = this.index;
+    clearTimeout(this.pendingTimer);
+    this.pendingTimer = setTimeout(() => {
+      this.pendingTimer = null;
       this.busy = false;
+      if (this.index !== programmedAt) return; // la pantalla ya cambió
       this.go(1);
     }, delay);
   }
@@ -136,6 +156,7 @@ export class TestRunner {
   }
 
   render() {
+    this.cancelPending();
     const item = this.current;
     if (!item) return;
     this.onProgress(this.index + 1, this.items.length);

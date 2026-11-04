@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0c1f1a" />
+<meta name="description" content="Evaluación biopsicosocial integrada: test maestro de 18 ítems con informe de 4 módulos, dietoterapia temperamental y microhábitos." />
+<title>Nexo · Perfilado Neuro-Conductual</title>
+<style>
+/* ==========================================================================
+   Nexo · sistema visual
+   Minimalista, mobile-first, sin dependencias externas.
+   ========================================================================== */
+:root {
+  --ink: #0d1b17;
+  --ink-soft: #38514a;
+  --ink-faint: #6d847d;
+  --paper: #fbfcfb;
+  --paper-2: #f2f5f3;
+  --line: #dfe7e3;
+  --accent: #0e7c66;
+  --accent-soft: #e3f3ee;
+  --accent-ink: #075243;
+  --warm: #b4741f;
+  --warm-soft: #fbf1e2;
+  --danger: #a63a2c;
+  --danger-soft: #fbeae7;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --shadow: 0 1px 2px rgba(13, 27, 23, .05), 0 12px 32px -18px rgba(13, 27, 23, .28);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: ui-serif, Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 50% -20%, #eef6f2 0%, transparent 70%),
+    var(--paper);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+  min-height: 100dvh;
+}
+a { color: var(--accent); }
+h1, h2, h3, h4 { margin: 0 0 .35em; line-height: 1.15; letter-spacing: -.015em; font-weight: 620; }
+p { margin: 0 0 1em; }
+strong { font-weight: 640; }
+button { font: inherit; color: inherit; }
+
+.app { display: flex; flex-direction: column; min-height: 100dvh; max-width: 760px; margin: 0 auto; padding: 0 20px; }
+.view { display: none; flex: 1; }
+.view.is-active { display: block; animation: fade .32s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ---------- botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  border: 1px solid transparent; border-radius: 999px; padding: .85em 1.5em;
+  font-weight: 620; font-size: .95rem; cursor: pointer; transition: transform .12s ease, background .2s, box-shadow .2s;
+  background: var(--paper-2); color: var(--ink);
+}
+.btn:active { transform: scale(.985); }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 10px 24px -12px rgba(14,124,102,.7); }
+.btn-primary:hover { background: var(--accent-ink); }
+.btn-primary:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+.btn-lg { padding: 1em 1.8em; font-size: 1.02rem; width: 100%; }
+.btn-ghost { background: transparent; border-color: var(--line); color: var(--ink-soft); }
+.btn-ghost:hover { background: var(--paper-2); }
+.icon-btn { background: transparent; border: 0; padding: 6px; border-radius: 999px; cursor: pointer; color: var(--ink-soft); }
+
+/* ---------- gate ---------- */
+.gate { padding: 12vh 0 40px; max-width: 460px; margin: 0 auto; }
+.brand { display: flex; gap: 14px; align-items: center; margin-bottom: 28px; color: var(--accent); }
+.brand-mark { width: 46px; height: 46px; flex: none; }
+.brand h1 { font-size: 1.6rem; color: var(--ink); margin: 0; }
+.brand-sub { margin: 0; font-size: .8rem; color: var(--ink-faint); letter-spacing: .01em; }
+.gate-form { display: grid; gap: 14px; margin-top: 22px; }
+.field { display: grid; gap: 6px; font-size: .82rem; color: var(--ink-soft); font-weight: 560; }
+.field em { font-style: normal; color: var(--ink-faint); font-weight: 400; }
+.field input {
+  border: 1px solid var(--line); background: #fff; border-radius: var(--radius-sm);
+  padding: .85em 1em; font-size: 1rem; color: var(--ink); transition: border-color .18s, box-shadow .18s;
+}
+.field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.error { color: var(--danger); background: var(--danger-soft); border-radius: var(--radius-sm); padding: .7em .9em; font-size: .87rem; margin: 0; }
+.micro { font-size: .76rem; color: var(--ink-faint); margin-top: 18px; }
+.lead { color: var(--ink-soft); font-size: 1.02rem; }
+
+/* ---------- intro ---------- */
+.intro { padding: 8vh 0 48px; }
+.eyebrow { text-transform: uppercase; letter-spacing: .16em; font-size: .7rem; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
+.display { font-family: var(--serif); font-size: clamp(1.9rem, 6vw, 2.6rem); font-weight: 600; letter-spacing: -.02em; }
+.pillars { display: grid; gap: 12px; margin: 28px 0; }
+.pillar { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; background: #fff; box-shadow: var(--shadow); }
+.pillar h3 { font-size: .95rem; color: var(--accent-ink); }
+.pillar p { margin: 0; font-size: .88rem; color: var(--ink-soft); }
+.facts { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0; margin: 0 0 24px; }
+.facts li { text-align: center; background: var(--paper-2); border-radius: var(--radius-sm); padding: 12px 6px; }
+.facts strong { display: block; font-size: 1.3rem; color: var(--accent-ink); }
+.facts span { font-size: .72rem; color: var(--ink-faint); }
+
+/* ---------- test ---------- */
+.test-bar { position: sticky; top: 0; z-index: 5; padding: 12px 0 10px; background: linear-gradient(var(--paper) 70%, rgba(251,252,251,0)); backdrop-filter: blur(6px); }
+.test-bar-inner { display: flex; align-items: center; gap: 12px; }
+.progress { flex: 1; height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #3fae8e); border-radius: 999px; transition: width .4s cubic-bezier(.22,.61,.36,1); }
+.step-counter { font-size: .74rem; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.stage { padding: 18px 0 60px; }
+
+.q-block { margin-bottom: 14px; }
+.q-kicker { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.q-title { font-family: var(--serif); font-size: clamp(1.25rem, 4.6vw, 1.55rem); margin: 8px 0 6px; }
+.q-helper { font-size: .86rem; color: var(--ink-faint); margin-bottom: 18px; }
+
+.options { display: grid; gap: 10px; }
+.option {
+  display: flex; gap: 12px; align-items: flex-start; width: 100%; text-align: left;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 15px 16px; cursor: pointer; transition: border-color .15s, background .15s, transform .12s;
+  font-size: .95rem; color: var(--ink);
+}
+.option:hover { border-color: #bcd6cd; }
+.option:active { transform: scale(.995); }
+.option.is-picked { border-color: var(--accent); background: var(--accent-soft); }
+.option .letter {
+  flex: none; width: 26px; height: 26px; border-radius: 8px; background: var(--paper-2);
+  display: grid; place-items: center; font-size: .76rem; font-weight: 700; color: var(--ink-faint);
+}
+.option.is-picked .letter { background: var(--accent); color: #fff; }
+
+/* sliders */
+.slider-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; }
+.slider-card p { margin: 0 0 12px; font-size: .93rem; }
+.slider-card .value { font-variant-numeric: tabular-nums; color: var(--accent-ink); font-weight: 700; }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 26px; background: transparent; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--accent-soft), var(--line)); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; margin-top: -9px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(14,124,102,.4); }
+input[type="range"]::-moz-range-track { height: 6px; border-radius: 999px; background: var(--line); }
+input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--accent); border: 3px solid #fff; }
+.scale-ends { display: flex; justify-content: space-between; font-size: .7rem; color: var(--ink-faint); margin-top: 2px; }
+
+/* adjetivos */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: .55em 1em;
+  font-size: .88rem; cursor: pointer; transition: all .14s;
+}
+.chip.is-picked { background: var(--accent); border-color: var(--accent); color: #fff; }
+.chip.is-picked.danger { background: var(--warm); border-color: var(--warm); }
+.counter { font-size: .76rem; color: var(--ink-faint); margin-top: 12px; }
+
+/* escala 0-4 por frase */
+.stack-row { display: grid; gap: 8px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.stack-row:last-child { border-bottom: 0; }
+.stack-row p { margin: 0; font-size: .93rem; }
+.scale-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.scale-btn {
+  flex: 1 1 60px; min-width: 58px; border: 1px solid var(--line); background: #fff; border-radius: 10px;
+  padding: .5em .3em; font-size: .74rem; cursor: pointer; color: var(--ink-soft);
+}
+.scale-btn.is-picked { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+
+.stage-actions { display: flex; gap: 10px; margin-top: 22px; }
+.stage-actions .btn { flex: 1; }
+textarea {
+  width: 100%; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: .8em 1em;
+  font: inherit; font-size: .93rem; resize: vertical; min-height: 74px; background: #fff;
+}
+textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+
+/* ---------- resultados ---------- */
+.results { padding: 26px 0 60px; }
+.res-hero { border-radius: 26px; padding: 26px 22px; background: linear-gradient(160deg, #0c1f1a, #123a30 60%, #0e5a49); color: #eaf5f1; margin-bottom: 20px; }
+.res-hero .eyebrow { color: #7fd7c0; }
+.res-hero h2 { font-family: var(--serif); font-size: clamp(1.5rem, 5.4vw, 2rem); margin-bottom: 8px; }
+.res-hero p { color: #c2ded5; font-size: .92rem; margin-bottom: 0; }
+.res-hero .code { display: inline-block; margin-top: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; letter-spacing: .1em; background: rgba(255,255,255,.12); padding: .45em .8em; border-radius: 999px; }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 14px; scrollbar-width: none; position: sticky; top: 0; background: linear-gradient(var(--paper) 75%, rgba(251,252,251,0)); z-index: 4; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: none; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: .5em .95em; font-size: .82rem; cursor: pointer; color: var(--ink-soft); white-space: nowrap; }
+.tab.is-active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+.card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; box-shadow: var(--shadow); }
+.card > h3 { font-size: 1.02rem; margin-bottom: 4px; }
+.card > h3 + .hint { margin-bottom: 14px; }
+.hint { font-size: .82rem; color: var(--ink-faint); }
+.card h4 { font-size: .82rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-faint); margin: 18px 0 8px; font-weight: 700; }
+.card ul { margin: 0 0 10px; padding-left: 1.15em; font-size: .9rem; color: var(--ink-soft); }
+.card li { margin-bottom: .35em; }
+.grid-2 { display: grid; gap: 12px; }
+@media (min-width: 620px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+.stat-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.stat { flex: 1 1 90px; background: var(--paper-2); border-radius: var(--radius-sm); padding: 10px 12px; }
+.stat span { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-faint); }
+.stat strong { font-size: 1.05rem; color: var(--accent-ink); }
+
+.bar { margin-bottom: 10px; }
+.bar-head { display: flex; justify-content: space-between; font-size: .82rem; margin-bottom: 4px; }
+.bar-head span:last-child { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.bar-track { height: 8px; border-radius: 999px; background: var(--paper-2); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), #48b795); }
+.bar-fill.warm { background: linear-gradient(90deg, var(--warm), #e0a145); }
+
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: .74rem; font-weight: 620; padding: .35em .7em; border-radius: 999px; background: var(--paper-2); color: var(--ink-soft); }
+.badge.flag { background: var(--warm-soft); color: #85500f; }
+.badge.ok { background: var(--accent-soft); color: var(--accent-ink); }
+.badge.clinic { background: var(--danger-soft); color: var(--danger); }
+
+.note { font-size: .82rem; color: var(--ink-soft); background: var(--paper-2); border-left: 3px solid var(--accent); padding: .75em .9em; border-radius: 0 10px 10px 0; margin: 12px 0 0; }
+.note.warm { border-left-color: var(--warm); background: var(--warm-soft); }
+.note.danger { border-left-color: var(--danger); background: var(--danger-soft); }
+
+.career { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.career:last-child { border-bottom: 0; }
+.career strong { font-size: .93rem; }
+.career small { display: block; color: var(--ink-faint); font-size: .76rem; margin-top: 2px; }
+.career .fit { flex: none; font-size: .72rem; color: var(--accent-ink); background: var(--accent-soft); border-radius: 999px; padding: .3em .7em; height: fit-content; }
+
+.habit { border: 1px dashed #c9dcd4; border-radius: var(--radius-sm); padding: 14px; margin-bottom: 10px; background: #fcfffd; }
+.habit h4 { margin: 0 0 8px; text-transform: none; letter-spacing: 0; font-size: .95rem; color: var(--ink); }
+.recipe { display: grid; gap: 6px; font-size: .85rem; }
+.recipe div { display: flex; gap: 8px; align-items: baseline; }
+.recipe b { flex: none; font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); min-width: 96px; }
+.recipe span { color: var(--ink-soft); }
+
+.switch { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--warm-soft); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 12px; }
+.switch p { margin: 0; font-size: .84rem; color: #7a4a0d; }
+.toggle { flex: none; width: 46px; height: 26px; border-radius: 999px; background: #d9c7ae; border: 0; position: relative; cursor: pointer; }
+.toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .2s; }
+.toggle.on { background: var(--warm); }
+.toggle.on::after { transform: translateX(20px); }
+
+.do-dont { display: grid; gap: 12px; }
+@media (min-width: 620px) { .do-dont { grid-template-columns: 1fr 1fr; } }
+.do-dont .card { margin: 0; }
+.do-list li::marker { color: var(--accent); }
+.dont-list li::marker { color: var(--danger); }
+
+.chart { width: 100%; height: auto; display: block; }
+.chart-caption { font-size: .76rem; color: var(--ink-faint); text-align: center; margin-top: 6px; }
+
+.actions-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.actions-bar .btn { flex: 1 1 160px; }
+
+.modal-backdrop { position: fixed; inset: 0; background: rgba(13,27,23,.45); display: grid; place-items: end center; z-index: 50; padding: 0; }
+.modal { background: var(--paper); width: 100%; max-width: 520px; border-radius: 22px 22px 0 0; padding: 22px; max-height: 88dvh; overflow: auto; animation: up .28s ease both; }
+@keyframes up { from { transform: translateY(24px); opacity: .6; } to { transform: none; opacity: 1; } }
+.modal h3 { font-size: 1.1rem; }
+.modal .field { margin-bottom: 14px; }
+.mood-scale { display: flex; gap: 8px; }
+.mood-scale button { flex: 1; border: 1px solid var(--line); background: #fff; border-radius: 12px; padding: .7em 0; font-size: .8rem; cursor: pointer; }
+.mood-scale button.is-picked { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.foot { border-top: 1px solid var(--line); padding: 18px 0 26px; font-size: .74rem; color: var(--ink-faint); display: flex; gap: 8px; justify-content: center; }
+.foot a { color: var(--ink-faint); text-decoration: none; }
+.foot a:hover { color: var(--accent); }
+
+/* ---------- impresión / PDF ---------- */
+@media print {
+  body { background: #fff; }
+  .app { max-width: none; padding: 0; }
+  .test-bar, .tabs, .actions-bar, .foot, .no-print { display: none !important; }
+  .card, .res-hero, .habit { break-inside: avoid; box-shadow: none; }
+  .res-hero { background: #0c1f1a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .tab-panel { display: block !important; page-break-before: auto; }
+  .view:not(#view-result) { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+</style>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCI+CiAgPHJlY3Qgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4IiByeD0iMTEiIGZpbGw9IiMwYzFmMWEiLz4KICA8Y2lyY2xlIGN4PSIyNCIgY3k9IjEzIiByPSIzLjgiIGZpbGw9IiM3ZmQ3YzAiLz4KICA8Y2lyY2xlIGN4PSIzNSIgY3k9IjMxIiByPSIzLjgiIGZpbGw9IiMzZmFlOGUiLz4KICA8Y2lyY2xlIGN4PSIxMyIgY3k9IjMxIiByPSIzLjgiIGZpbGw9IiMwZTdjNjYiLz4KICA8cGF0aCBkPSJNMjQgMTMgTDM1IDMxIEwxMyAzMSBaIiBmaWxsPSJub25lIiBzdHJva2U9IiM3ZmQ3YzAiIHN0cm9rZS13aWR0aD0iMS4zIiBvcGFjaXR5PSIuNiIvPgo8L3N2Zz4K" />
+</head>
+<body>
+<div class="demo-strip">
+  Versión web estática · el informe se calcula en tu dispositivo y no se envía a ningún servidor
+</div>
+<div class="app">
+
+  <!-- ============ GATE (no se usa en la versión pública) ============ -->
+  <section id="view-gate" class="view">
+    <div class="gate">
+      <div class="brand">
+        <svg viewBox="0 0 48 48" class="brand-mark" aria-hidden="true">
+          <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".45"/>
+          <circle cx="24" cy="10" r="4.2" fill="currentColor"/>
+          <circle cx="36" cy="30" r="4.2" fill="currentColor" opacity=".75"/>
+          <circle cx="12" cy="30" r="4.2" fill="currentColor" opacity=".55"/>
+          <path d="M24 10 L36 30 L12 30 Z" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+        </svg>
+        <div>
+          <h1>Nexo</h1>
+          <p class="brand-sub">Perfilado Neuro-Conductual · Evaluación biopsicosocial</p>
+        </div>
+      </div>
+      <p class="lead">Acceso privado. Entra con el código que te compartieron.</p>
+      <form id="gate-form" class="gate-form" autocomplete="off">
+        <label class="field"><span>Código de invitación</span>
+          <input id="invite-input" name="invite" type="text" placeholder="pega tu código aquí" required />
+        </label>
+        <label class="field"><span>¿Cómo te llamas? <em>(opcional)</em></span>
+          <input id="name-input" name="name" type="text" placeholder="Tu nombre" maxlength="60" />
+        </label>
+        <button class="btn btn-primary" type="submit">Entrar</button>
+        <p id="gate-error" class="error" role="alert" hidden></p>
+      </form>
+      <p class="micro">Tus respuestas de salud se guardan cifradas y separadas del resto.</p>
+    </div>
+  </section>
+
+  <!-- ============ INTRO ============ -->
+  <section id="view-intro" class="view">
+    <div class="intro">
+      <p class="eyebrow">Tanda única de evaluación</p>
+      <h2 class="display">Un test maestro.<br />Dos motores. Un mapa de ti.</h2>
+      <p class="lead">18 reactivos, menos de 5 minutos. Cruzamos tu conducta observable con tu temperamento biológico para darte una ruta concreta, no un horóscopo.</p>
+
+      <div class="pillars">
+        <article class="pillar">
+          <h3>Motor psicotécnico</h3>
+          <p>VAK · Gardner · RIASEC · TKI · Big Five · cribados AQ-10, ASRS y CAT-Q.</p>
+        </article>
+        <article class="pillar">
+          <h3>Motor psicobiológico</h3>
+          <p>Temperamentos hipocráticos · Ejes de Eysenck · Cloninger TCI · Fisher FTI · matriz Littauer.</p>
+        </article>
+        <article class="pillar">
+          <h3>Salida accionable</h3>
+          <p>Informe con vocación, comunicación, dietoterapia Unani y microhábitos con versión de baja energía.</p>
+        </article>
+      </div>
+
+      <ul class="facts">
+        <li><strong>~5 min</strong><span>avance automático</span></li>
+        <li><strong>18</strong><span>reactivos</span></li>
+        <li><strong>4</strong><span>módulos de informe</span></li>
+      </ul>
+
+      <button id="start-test" class="btn btn-primary btn-lg">Comenzar la evaluación</button>
+      <button id="resume-report" class="btn btn-ghost" hidden>Ver mi informe anterior</button>
+      <p class="micro">Herramienta de bienestar y autoconocimiento. No sustituye diagnóstico ni tratamiento clínico. En esta versión web, tus respuestas y tu informe se guardan únicamente en el almacenamiento de este navegador.</p>
+    </div>
+  </section>
+
+  <!-- ============ TEST ============ -->
+  <section id="view-test" class="view">
+    <header class="test-bar">
+      <div class="test-bar-inner">
+        <button id="test-back" class="icon-btn" aria-label="Atrás" hidden>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+        </button>
+        <div class="progress" aria-hidden="true"><div id="progress-fill" class="progress-fill"></div></div>
+        <span id="step-counter" class="step-counter">1 / 20</span>
+      </div>
+    </header>
+    <main id="test-stage" class="stage" aria-live="polite"></main>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="view-result" class="view">
+    <div id="result-root" class="results"></div>
+  </section>
+
+  <footer class="foot">
+    <span>Nexo · bienestar integral</span>
+    <span class="dot">·</span>
+    <span>Demo estática · sin servidor</span>
+  </footer>
+</div>
+<script>
+/* Nexo · build estático — motor psicométrico y UI en un solo archivo */
+(()=>{var Ne=(e=0,a=0,t=0)=>({V:e,A:a,K:t}),je=(e={})=>({ling:0,logmat:0,esp:0,mus:0,kin:0,inter:0,intra:0,nat:0,...e}),De=(e={})=>({R:0,I:0,A:0,S:0,E:0,C:0,...e}),Le=(e={})=>({comp:0,colab:0,comprom:0,evit:0,acom:0,...e}),qe=(e={})=>({shift:0,focus:0,inhib:0,...e}),Pe=(e=0,a=0,t=0)=>({E:e,N:a,P:t}),Fe=(e={})=>({NS:0,HA:0,RD:0,PS:0,SD:0,CO:0,ST:0,...e}),k=({vak:e,gardner:a,riasec:t,tki:s,ejecutivo:i,eysenck:n,cloninger:o})=>({vak:Ne(e?.[0]||0,e?.[1]||0,e?.[2]||0),gardner:je(a),riasec:De(t),tki:Le(s),ejecutivo:qe(i),eysenck:Pe(n?.[0]||0,n?.[1]||0,n?.[2]||0),cloninger:Fe(o)}),z=[{id:"SIT_01",block:1,position:1,kind:"situational",dimension:"VAK",prompt:"Arrancas un proyecto nuevo. \xBFCu\xE1l es tu primer movimiento?",helper:"No lo pienses demasiado: elige lo que har\xEDas de verdad.",options:[{id:"A",label:"Dibujo un mapa o boceto del plan antes de hablar con nadie.",vector:k({vak:[2,0,1],gardner:{esp:2,logmat:1},riasec:{I:1,C:1,A:1},tki:{evit:1,colab:1},ejecutivo:{focus:1},eysenck:[0,0,0],cloninger:{NS:1,HA:1,PS:1}})},{id:"B",label:"Lo explico en voz alta y busco aliados para cont\xE1rselo.",vector:k({vak:[0,2,0],gardner:{ling:2,inter:1},riasec:{S:1,E:1},tki:{acom:1,colab:1},ejecutivo:{focus:1},eysenck:[2,0,0],cloninger:{RD:2,NS:1}})},{id:"C",label:"Empiezo a probar cosas con las manos: aprender\xE9 haciendo.",vector:k({vak:[0,0,2],gardner:{kin:2,nat:1},riasec:{R:1,E:1},tki:{comp:1},ejecutivo:{focus:1},eysenck:[2,0,1],cloninger:{NS:2,PS:1}})},{id:"D",label:"Armo una estructura: listas, plazos, n\xFAmeros y riesgos.",vector:k({vak:[1,0,0],gardner:{logmat:2,intra:1},riasec:{C:2,I:1},tki:{evit:1,comp:1},ejecutivo:{inhib:1,focus:1},eysenck:[0,1,0],cloninger:{HA:2,PS:1}})}]},{id:"SIT_02",block:1,position:2,kind:"situational",dimension:"TKI",prompt:"En una negociaci\xF3n de venta el cliente presiona y quiere bajar el precio. \xBFQu\xE9 haces?",helper:"Elige tu reacci\xF3n m\xE1s probable, no la m\xE1s elegante.",options:[{id:"A",label:"Sostengo el precio y el valor: si no le gusta, hay otros clientes.",vector:k({vak:[0,1,0],gardner:{ling:1,logmat:1},riasec:{E:2,C:1},tki:{comp:2},ejecutivo:{focus:1},eysenck:[2,1,1],cloninger:{NS:2,PS:1}})},{id:"B",label:"Busco el problema real detr\xE1s del precio y dise\xF1o una salida conjunta.",vector:k({vak:[0,1,1],gardner:{inter:2,logmat:1},riasec:{S:1,E:1,I:1},tki:{colab:2},ejecutivo:{shift:1,focus:1},eysenck:[1,0,0],cloninger:{RD:1,CO:2,ST:1}})},{id:"C",label:"Parto la diferencia: algo es algo, prefiero cerrar hoy.",vector:k({vak:[0,1,0],gardner:{inter:1,logmat:1},riasec:{E:1,S:1},tki:{comprom:2},ejecutivo:{shift:1},eysenck:[1,1,0],cloninger:{RD:1,HA:1}})},{id:"D",label:"Me retiro del tema: dejo que lo piense y evito el roce.",vector:k({vak:[1,0,0],gardner:{intra:1},riasec:{C:1,R:1},tki:{evit:2},ejecutivo:{inhib:1},eysenck:[-2,1,0],cloninger:{HA:2,NS:-1}})}]},{id:"SIT_03",block:1,position:3,kind:"situational",dimension:"CLONINGER",prompt:"Hay tensi\xF3n fuerte en tu familia. \xBFC\xF3mo se manifiesta en ti esa tensi\xF3n?",helper:"Piensa en la \xFAltima vez que pas\xF3 de verdad.",options:[{id:"A",label:"Se me va al cuerpo: est\xF3mago, pecho, cuello, insomnio.",vector:k({vak:[0,0,1],gardner:{intra:2},riasec:{S:1,C:1},tki:{evit:1,acom:1},ejecutivo:{inhib:1},eysenck:[-1,2,0],cloninger:{HA:3}})},{id:"B",label:"Lo hablo de frente, quiero resolverlo ya.",vector:k({vak:[0,1,0],gardner:{ling:2,inter:1},riasec:{E:1,S:1},tki:{comp:1,colab:1},ejecutivo:{focus:1},eysenck:[2,1,0],cloninger:{NS:2,PS:1}})},{id:"C",label:"Me lo trago, cedo y luego me quedo rumiando horas.",vector:k({vak:[0,1,0],gardner:{intra:2},riasec:{S:1,C:1},tki:{acom:2},ejecutivo:{inhib:1},eysenck:[-1,2,0],cloninger:{HA:2,RD:1}})},{id:"D",label:"Hago de mediador: bajo la temperatura y cuido a todos.",vector:k({vak:[0,1,0],gardner:{inter:2},riasec:{S:2},tki:{colab:1,acom:1},ejecutivo:{shift:1},eysenck:[1,-1,0],cloninger:{RD:2,CO:2}})}]},{id:"SIT_04",block:1,position:4,kind:"situational",dimension:"RIASEC",prompt:"Est\xE1s en flow total, tan concentrado que se te va el tiempo. \xBFQu\xE9 estabas haciendo?",helper:"Ese momento en que levantas la cabeza y han pasado tres horas.",options:[{id:"A",label:"Construyendo, reparando o armando algo con las manos.",vector:k({vak:[0,0,2],gardner:{kin:2,nat:1,esp:1},riasec:{R:3},tki:{comp:1},ejecutivo:{focus:2},eysenck:[1,-1,1],cloninger:{NS:1,PS:2}})},{id:"B",label:"Investigando, leyendo, entendiendo c\xF3mo funciona algo.",vector:k({vak:[1,0,0],gardner:{logmat:2,ling:1},riasec:{I:3},tki:{evit:1},ejecutivo:{focus:2},eysenck:[-1,1,0],cloninger:{HA:1,PS:2}})},{id:"C",label:"Creando, escribiendo, dise\xF1ando o componiendo algo nuevo.",vector:k({vak:[1,1,0],gardner:{esp:1,mus:1,ling:1},riasec:{A:3},tki:{evit:1,comprom:1},ejecutivo:{shift:2},eysenck:[1,1,1],cloninger:{NS:2,ST:2}})},{id:"D",label:"Ense\xF1ando, acompa\xF1ando o resolvi\xE9ndole algo a otra persona.",vector:k({vak:[0,2,0],gardner:{inter:2,ling:1},riasec:{S:3},tki:{acom:1,colab:1},ejecutivo:{focus:1},eysenck:[1,0,0],cloninger:{RD:3,CO:2}})}]},{id:"SIT_05",block:1,position:5,kind:"situational",dimension:"ASRS",prompt:"Demasiadas pesta\xF1as abiertas: mensajes, ruido, tareas. \xBFQu\xE9 te pasa?",helper:"Sobrecarga y caos sensorial.",options:[{id:"A",label:"Me bloqueo: no s\xE9 por d\xF3nde empezar y no hago nada.",vector:k({vak:[1,0,0],gardner:{intra:1},riasec:{C:1,A:1},tki:{evit:2},ejecutivo:{shift:-2,focus:-2},eysenck:[0,2,0],cloninger:{HA:2,NS:-1}})},{id:"B",label:"Hiperfoco: me engancho a una cosa y olvido el resto.",vector:k({vak:[0,0,1],gardner:{logmat:1,esp:1},riasec:{I:1,R:1},tki:{evit:1},ejecutivo:{focus:2,shift:-1},eysenck:[1,1,1],cloninger:{NS:2,PS:2}})},{id:"C",label:"Corto el ruido: silencio, orden visual y una sola cosa a la vez.",vector:k({vak:[2,0,0],gardner:{intra:2},riasec:{C:2},tki:{evit:1,comp:1},ejecutivo:{inhib:2},eysenck:[-1,1,0],cloninger:{HA:2,PS:1}})},{id:"D",label:"Externalizo: escribo todo en una lista y delego lo que puedo.",vector:k({vak:[1,1,0],gardner:{logmat:1,inter:1},riasec:{E:2,C:1},tki:{comp:1,colab:1},ejecutivo:{shift:1,focus:1},eysenck:[2,0,0],cloninger:{NS:1,SD:1,CO:1}})}]},{id:"SIT_06",block:1,position:6,kind:"situational",dimension:"AQ10",prompt:"Alguien te cuenta un problema con una historia larga y confusa. \xBFC\xF3mo lo decodificas?",helper:"Lectura social y empat\xEDa.",options:[{id:"A",label:"Percibo el clima emocional y respondo a eso, aunque no entienda los detalles.",vector:k({vak:[0,1,1],gardner:{inter:2,intra:1},riasec:{S:2},tki:{acom:1,colab:1},ejecutivo:{shift:1},eysenck:[1,0,0],cloninger:{RD:3}})},{id:"B",label:"Pregunto datos concretos: qu\xE9 pas\xF3, qui\xE9n, cu\xE1ndo y qu\xE9 necesitas.",vector:k({vak:[1,0,0],gardner:{logmat:2},riasec:{I:1,C:1},tki:{comp:1},ejecutivo:{inhib:1},eysenck:[0,0,1],cloninger:{HA:1,PS:1}})},{id:"C",label:"Me pierdo: no s\xE9 qu\xE9 se espera de m\xED y me quedo callado.",vector:k({vak:[0,0,1],gardner:{intra:2},riasec:{C:1,R:1},tki:{evit:2},ejecutivo:{shift:-1},eysenck:[-2,2,0],cloninger:{HA:2,RD:1}})},{id:"D",label:"Me pongo en su lugar y le doy una respuesta c\xE1lida, aunque sea obvia.",vector:k({vak:[0,1,0],gardner:{inter:2,ling:1},riasec:{S:2,A:1},tki:{acom:2},ejecutivo:{shift:1},eysenck:[1,0,0],cloninger:{RD:2,CO:2}})}]}],O=[{id:"TIPI_07",block:2,position:7,kind:"likert",dimension:"TIPI",scoring_key:"E",prompt:"Extraversi\xF3n: \xBFcu\xE1nto te representa cada frase?",helper:"1 = nada, 7 = totalmente.",pairs:[{id:"a",text:"Me considero una persona extravertida, entusiasta.",reverse:!1},{id:"b",text:"Soy reservado/a y tiendo a callarme en grupo.",reverse:!0}],config:{min:1,max:7,step:1}},{id:"TIPI_08",block:2,position:8,kind:"likert",dimension:"TIPI",scoring_key:"A",prompt:"Amabilidad: \xBFcu\xE1nto te representa cada frase?",helper:"1 = nada, 7 = totalmente.",pairs:[{id:"a",text:"Soy comprensivo/a y c\xE1lido/a con los dem\xE1s.",reverse:!1},{id:"b",text:"Suelo ser cr\xEDtico/a y discutidor/a.",reverse:!0}],config:{min:1,max:7,step:1}},{id:"TIPI_09",block:2,position:9,kind:"likert",dimension:"TIPI",scoring_key:"C",prompt:"Responsabilidad: \xBFcu\xE1nto te representa cada frase?",helper:"1 = nada, 7 = totalmente.",pairs:[{id:"a",text:"Soy organizado/a y cumplo lo que prometo.",reverse:!1},{id:"b",text:"Tiendo a ser desordenado/a y a postergar.",reverse:!0}],config:{min:1,max:7,step:1}},{id:"TIPI_10",block:2,position:10,kind:"likert",dimension:"TIPI",scoring_key:"ES",prompt:"Estabilidad emocional: \xBFcu\xE1nto te representa cada frase?",helper:"1 = nada, 7 = totalmente.",pairs:[{id:"a",text:"Me mantengo calmado/a y estable bajo presi\xF3n.",reverse:!1},{id:"b",text:"Me altero con facilidad y me preocupo mucho.",reverse:!0}],config:{min:1,max:7,step:1}},{id:"TIPI_11",block:2,position:11,kind:"likert",dimension:"TIPI",scoring_key:"O",prompt:"Apertura: \xBFcu\xE1nto te representa cada frase?",helper:"1 = nada, 7 = totalmente.",pairs:[{id:"a",text:"Soy curioso/a, imaginativo/a y abierto/a a lo nuevo.",reverse:!1},{id:"b",text:"Prefiero la rutina y las ideas convencionales.",reverse:!0}],config:{min:1,max:7,step:1}}],M=[{id:"SCR_12",block:2,position:12,kind:"binary",dimension:"AQ10",prompt:"Percibes el mundo social de forma algo distinta. \xBFTe reconoces?",helper:"Cribado tipo AQ-10. Responde S\xED o No por frase. No es un diagn\xF3stico.",statements:[{id:"aq1",text:"A menudo noto sonidos o detalles que otros no perciben."},{id:"aq2",text:"Me resulta dif\xEDcil adivinar las intenciones de los dem\xE1s."},{id:"aq3",text:"Las conversaciones sociales me cansan m\xE1s de lo normal."}],config:{yesScores:1}},{id:"SCR_13",block:2,position:13,kind:"scale4",dimension:"ASRS",prompt:"Atenci\xF3n y organizaci\xF3n en el \xFAltimo mes.",helper:"Escala 0 (nunca) a 4 (muy frecuentemente). Cribado tipo ASRS.",statements:[{id:"as1",text:"Dejo tareas a medias porque me distraigo."},{id:"as2",text:"Me cuesta organizar y priorizar lo que tengo que hacer."},{id:"as3",text:"Me levanto o muevo cuando deber\xEDa estar quieto/a."}],labels:["Nunca","Rara vez","A veces","Frecuente","Muy frecuente"]},{id:"SCR_14",block:2,position:14,kind:"scale4",dimension:"CATQ",prompt:"Enmascaramiento social: \xBFqu\xE9 tanto te adaptas para encajar?",helper:"Escala 0 a 4. \xCDndice de enmascaramiento (CAT-Q abreviado).",statements:[{id:"cat1",text:"Imito gestos y expresiones para encajar en el grupo."},{id:"cat2",text:"Ensayo conversaciones en mi cabeza antes de tenerlas."},{id:"cat3",text:"Oculto mi cansancio social detr\xE1s de una m\xE1scara amable."}],labels:["Nunca","Casi nunca","A veces","Casi siempre","Siempre"]}],U=[{id:"TRG_15",block:3,position:15,kind:"multi",dimension:"TRIAGE",prompt:"\xBFQu\xE9 necesita atenci\xF3n primero en tu vida?",helper:"Elige hasta 2. Esto orienta el informe, no etiqueta nada.",options:[{id:"ansiedad",label:"Ansiedad / mente acelerada"},{id:"depresion",label:"Des\xE1nimo o falta de sentido"},{id:"ventas",label:"Ventas y comunicaci\xF3n"},{id:"relaciones",label:"Relaciones y familia"},{id:"vocacion",label:"Vocaci\xF3n y trabajo"}],config:{minSelect:1,maxSelect:2}},{id:"TRG_16",block:3,position:16,kind:"multi",dimension:"SOMATIZATION",prompt:"\xBFEl cuerpo te est\xE1 cobrando factura?",helper:"Marca todo lo que reconoces en las \xFAltimas 2 semanas.",options:[{id:"insomnio",label:"Insomnio o sue\xF1o roto"},{id:"digestivo",label:"Molestias digestivas"},{id:"rumiacion",label:"Rumiaci\xF3n mental"},{id:"tension",label:"Tensi\xF3n muscular o mand\xEDbula"},{id:"fatiga",label:"Fatiga sin causa aparente"},{id:"ninguno",label:"Ninguno / estoy bien",exclusive:!0}],config:{minSelect:1,maxSelect:3}},{id:"TRG_17",block:3,position:17,kind:"choice",dimension:"FUTURE",prompt:"Mira tu vida dentro de 6 semanas. \xBFQu\xE9 te gustar\xEDa poder decir?",helper:"Esta frase ancla tus microh\xE1bitos.",options:[{id:"control",label:"\u201CTengo el control de mi energ\xEDa y mis horarios.\u201D"},{id:"calma",label:"\u201CEstoy m\xE1s calmado/a y duermo mejor.\u201D"},{id:"ingresos",label:"\u201CCierro mejor mis ventas y comunico con claridad.\u201D"},{id:"vinculos",label:"\u201CMis relaciones est\xE1n m\xE1s claras y menos tensas.\u201D"},{id:"rumbo",label:"\u201CS\xE9 hacia d\xF3nde va mi vida y por qu\xE9.\u201D"}],config:{allowText:!0,textPlaceholder:"Opcional: escribe tu frase exacta\u2026"}},{id:"TRG_18",block:3,position:18,kind:"choice",dimension:"COMMITMENT",prompt:"\xBFCu\xE1nto tiempo real puedes darte al d\xEDa?",helper:"S\xE9 honesto: el sistema se adapta a tu realidad.",options:[{id:"min5",label:"5 minutos \u2014 quiero microh\xE1bitos m\xEDnimos"},{id:"min15",label:"15 minutos \u2014 puedo sostener algo m\xE1s"},{id:"min30",label:"30 minutos \u2014 estoy comprometido/a"}]}],B=[{id:"S1",label:"Animado",bio:"S"},{id:"S2",label:"Entusiasta",bio:"S"},{id:"S3",label:"Sociable",bio:"S"},{id:"S4",label:"Persuasivo",bio:"S"},{id:"S5",label:"Espont\xE1neo",bio:"S"},{id:"C1",label:"Decidido",bio:"C"},{id:"C2",label:"Competitivo",bio:"C"},{id:"C3",label:"L\xEDder",bio:"C"},{id:"C4",label:"Productivo",bio:"C"},{id:"C5",label:"Valiente",bio:"C"},{id:"M1",label:"Anal\xEDtico",bio:"M"},{id:"M2",label:"Detallista",bio:"M"},{id:"M3",label:"Perfeccionista",bio:"M"},{id:"M4",label:"Sensible",bio:"M"},{id:"M5",label:"Ordenado",bio:"M"},{id:"F1",label:"Paciente",bio:"F"},{id:"F2",label:"Leal",bio:"F"},{id:"F3",label:"Diplom\xE1tico",bio:"F"},{id:"F4",label:"Sereno",bio:"F"},{id:"F5",label:"Confiable",bio:"F"}],H=[{id:"S6",label:"Indisciplinado",bio:"S"},{id:"S7",label:"Impulsivo",bio:"S"},{id:"S8",label:"Desordenado",bio:"S"},{id:"S9",label:"Exagerado",bio:"S"},{id:"S10",label:"Olvidadizo",bio:"S"},{id:"C6",label:"Mand\xF3n",bio:"C"},{id:"C7",label:"Impaciente",bio:"C"},{id:"C8",label:"Insensible",bio:"C"},{id:"C9",label:"Terco",bio:"C"},{id:"C10",label:"Sarc\xE1stico",bio:"C"},{id:"M6",label:"Resentido",bio:"M"},{id:"M7",label:"Negativo",bio:"M"},{id:"M8",label:"Cr\xEDtico",bio:"M"},{id:"M9",label:"Suspicaz",bio:"M"},{id:"M10",label:"R\xEDgido",bio:"M"},{id:"F6",label:"Ap\xE1tico",bio:"F"},{id:"F7",label:"Indeciso",bio:"F"},{id:"F8",label:"Pasivo",bio:"F"},{id:"F9",label:"Temeroso",bio:"F"},{id:"F10",label:"Testarudo",bio:"F"}],ze=[{id:"LIT_F",block:2,position:"12a",kind:"adjective",dimension:"LITTAUER_STRENGTHS",prompt:"Marcas de fortaleza: \xBFcu\xE1les te describen mejor?",helper:"Toca las que reconozcas (m\xEDnimo 4, m\xE1ximo 10). Sin pensar demasiado.",adjectives:B,config:{minSelect:4,maxSelect:10}},{id:"LIT_D",block:2,position:"12b",kind:"adjective",dimension:"LITTAUER_WEAKNESSES",prompt:"Marcas de debilidad: \xBFcu\xE1les te cuestan m\xE1s?",helper:"M\xEDnimo 3, m\xE1ximo 10. Aqu\xED nadie juzga: es material de trabajo.",adjectives:H,config:{minSelect:3,maxSelect:10}}],N={S:{name:"Sangu\xEDneo",mizaj:"Caliente y h\xFAmedo",eysenck:[1,-1]},C:{name:"Col\xE9rico",mizaj:"Caliente y seco",eysenck:[1,1]},M:{name:"Melanc\xF3lico",mizaj:"Fr\xEDo y seco",eysenck:[-1,1]},F:{name:"Flem\xE1tico",mizaj:"Fr\xEDo y h\xFAmedo",eysenck:[-1,-1]}},be=[...z,...O,...ze,...M,...U];var Q=["V","A","K"],Y=["ling","logmat","esp","mus","kin","inter","intra","nat"],J=["R","I","A","S","E","C"],G=["comp","colab","comprom","evit","acom"],Oe=["NS","HA","RD","PS","SD","CO","ST"],Be=["E","A","C","ES","O"],ve={R:"Realista",I:"Investigador",A:"Art\xEDstico",S:"Social",E:"Emprendedor",C:"Convencional"},he={ling:"Ling\xFC\xEDstica",logmat:"L\xF3gico-Matem\xE1tica",esp:"Espacial",mus:"Musical",kin:"Kinest\xE9sica",inter:"Interpersonal",intra:"Intrapersonal",nat:"Naturalista"},ie={comp:"Tibur\xF3n (competitivo)",colab:"B\xFAho (colaborativo)",comprom:"Zorro (compromiso)",evit:"Tortuga (evitativo)",acom:"Oso (complaciente)"},ye={V:"Visual",A:"Auditivo",K:"Kinest\xE9sico"},j=e=>Object.fromEntries(e.map(a=>[a,0])),T=(e,a,t)=>Math.max(a,Math.min(t,e)),D=(e,a=0)=>Number(Number(e).toFixed(a));function _(e,a){let t=Math.max(...a.map(i=>Number(e[i])||0),0),s={};for(let i of a){let n=Number(e[i])||0;s[i]=t>0?T(Math.round(Math.max(n,0)/t*100),0,100):0,s[`${i}_raw`]=D(n,2)}return s}function K(e,a){return a.map(t=>({key:t,score:Number(e[t])||0})).sort((t,s)=>s.score-t.score||t.key.localeCompare(s.key))}function He(e,a){let t={vak:j(Q),gardner:j(Y),riasec:j(J),tki:j(G),ejecutivo:j(["shift","focus","inhib"]),eysenck:j(["E","N","P"]),cloninger:j(Oe)};for(let s of z){let i=e[s.id];if(!i)continue;let n=a[`${s.id}:${i}`];if(n)for(let o of Object.keys(t))for(let r of Object.keys(t[o]))t[o][r]+=Number(n[o]?.[r])||0}return t}function Ge(e){let a={},t={};for(let i of O){let n=e[i.id]||{},o=i.pairs.map(d=>{let l=T(Number(n[d.id]??4),1,7),u=d.reverse?8-l:l;return{id:d.id,value:l,reverse:d.reverse,recoded:u}}),r=o.reduce((d,l)=>d+l.recoded,0)/o.length;a[i.scoring_key]=D(r,2),t[i.id]=o}let s={};for(let i of Be)s[i]=Math.round((a[i]-1)/6*100);return{raw:a,percent:s,neuroticismRaw:D(8-a.ES,2),neuroticismPercent:Math.round((8-a.ES-1)/6*100),detail:t}}function Ve(e){let a=e.percent.E,t=e.percent.ES,s=e.neuroticismPercent,i;a>=50&&t>=50?i="S":a>=50&&t<50?i="C":a<50&&t>=50?i="F":i="M";let n={S:"Reactividad inmediata, espont\xE1nea y ef\xEDmera (dopamina alta, umbral bajo).",C:"Reactividad inmediata, en\xE9rgica y duradera (dopamina + testosterona, alta activaci\xF3n).",M:"Reactividad retardada, profunda y duradera (serotonina/HA, procesamiento lento y denso).",F:"Reactividad retardada, medida y ef\xEDmera (equilibrio serotonin\xE9rgico, baja activaci\xF3n)."}[i];return{x:a,y:t,neuroticism:s,quadrant:`${a>=50?"Extravertido":"Introvertido"} + ${t>=50?"Estable":"Inestable"}`,biotype:i,biotypeName:N[i].name,mizaj:N[i].mizaj,reactivity:n}}function Ue(e=[],a=[]){let t=new Set(e),s=new Set(a),i={S:0,C:0,M:0,F:0},n={S:0,C:0,M:0,F:0};for(let g of B)t.has(g.id)&&(i[g.bio]+=1);for(let g of H)s.has(g.id)&&(n[g.bio]+=1);let o=Object.values(i).reduce((g,x)=>g+x,0),r=Object.values(n).reduce((g,x)=>g+x,0),d=Object.fromEntries(["S","C","M","F"].map(g=>[g,i[g]+n[g]])),l=["S","C","M","F"].map(g=>({bio:g,total:d[g],F:i[g],D:n[g]})).sort((g,x)=>x.total-g.total||x.F-g.F),u=l[0].total-l[3].total,c=u<=1&&l[0].total<=Math.ceil((o+r)/4)+1,y=c?"F":l[0].bio,v=c&&l[1].bio==="F"?l[2].bio:l[1].bio,h=o>0?o/20:0,S=r>0?r/20:0,b=r>0?D(o/Math.max(o+r,1)/(r/Math.max(o+r,1)),3):2,E=o+r>0?D(o/(o+r),3):.5,C=["S","C","M","F"].filter(g=>n[g]>i[g]).map(g=>N[g].name);return{strengths:{S:i.S,C:i.C,M:i.M,F:i.F},weaknesses:{S:n.S,C:n.C,M:n.M,F:n.F},totals:d,totalMarked:o+r,strengthCount:o,weaknessCount:r,dominant:y,dominantName:N[y].name,secondary:v,secondaryName:N[v].name,flatProfile:c,spread:u,ratio:b,regulationIndex:E,density:{strengths:D(h,3),weaknesses:D(S,3)},deficits:C,characterDeficit:r>o,ranking:l.map(g=>({bio:g.bio,name:N[g.bio].name,total:g.total,strengths:g.F,weaknesses:g.D})),labels:{strengths:B.filter(g=>t.has(g.id)).map(g=>g.label),weaknesses:H.filter(g=>s.has(g.id)).map(g=>g.label)}}}function Ke(e,a,t){let s=_(e.cloninger,["NS","HA","RD","PS"]),i=a.regulationIndex,n=Math.round(.55*i*100+.45*t.percent.C),o=Math.round(.45*i*100+.35*t.percent.A+.2*s.RD),r=Math.round(.5*t.percent.O+.5*s.PS);return{temperament:{NS:s.NS,HA:s.HA,RD:s.RD,PS:s.PS},temperamentRaw:{NS:s.NS_raw,HA:s.HA_raw,RD:s.RD_raw,PS:s.PS_raw},character:{SD:T(n,0,100),CO:T(o,0,100),ST:T(r,0,100)},notes:{NS:"B\xFAsqueda de novedad \u2014 dopamina, exploraci\xF3n, impulsividad.",HA:"Evitaci\xF3n del da\xF1o \u2014 serotonina, ansiedad anticipatoria, inhibici\xF3n.",RD:"Dependencia de recompensa \u2014 oxitocina, v\xEDnculo, aprobaci\xF3n.",PS:"Persistencia \u2014 esfuerzo sostenido, perfeccionismo.",SD:"Autodirecci\xF3n: responsabilidad, metas propias, regulaci\xF3n.",CO:"Cooperaci\xF3n: empat\xEDa, tolerancia, trabajo con otros.",ST:"Autotrascendencia: sentido, espiritualidad, apertura."}}}function Qe(e,a,t,s){let i=e.temperament.NS,n=e.temperament.PS,o=e.temperament.RD,r=Math.round(.75*i+.25*a.percent.O),d=Math.round(.6*(100-i)+.4*n),l=Math.round(.45*(t.comp||0)+.3*a.percent.E+.25*e.character.SD),u=Math.round(.5*o+.3*a.percent.A+.2*e.character.CO),c=[{key:"dopamina",label:"Dopamina \xB7 Explorador",value:T(r,0,100)},{key:"serotonina",label:"Serotonina \xB7 Constructor",value:T(d,0,100)},{key:"testosterona",label:"Testosterona \xB7 Director",value:T(l,0,100)},{key:"oxitocina",label:"Estr\xF3geno/Oxitocina \xB7 Negociador",value:T(u,0,100)}].sort((y,v)=>v.value-y.value);return{axes:c,dominant:c[0].key,dominantLabel:c[0].label,secondary:c[1].key,secondaryLabel:c[1].label,biotypeHint:s.dominant}}function Ye(e){let a=M.find(p=>p.dimension==="AQ10"),t=M.find(p=>p.dimension==="ASRS"),s=M.find(p=>p.dimension==="CATQ"),i=e[a.id]||{},n=a.statements.reduce((p,F)=>p+(Number(i[F.id])?1:0),0),o=a.statements.length,r=n/o>=.6,d=e[t.id]||{},l=t.statements.reduce((p,F)=>p+T(Number(d[F.id])||0,0,4),0),u=t.statements.length*4,c=l/u>=.5,y=e[s.id]||{},v=s.statements.reduce((p,F)=>p+T(Number(y[F.id])||0,0,4),0),h=s.statements.length*4,S=Array.isArray(e.TRG_15)?e.TRG_15:[],b=(Array.isArray(e.TRG_16)?e.TRG_16:[]).filter(p=>p!=="ninguno"),E=e.TRG_17&&typeof e.TRG_17=="object"?e.TRG_17:{choice:e.TRG_17||null,text:""},C=e.TRG_18||"min15",g={min5:5,min15:15,min30:30}[C]||15,x=[];(S.includes("ansiedad")||b.includes("rumiacion"))&&x.push("anxiety_priority"),(S.includes("depresion")||b.includes("fatiga"))&&x.push("mood_priority"),b.includes("insomnio")&&x.push("sleep_disruption"),b.length>=3&&x.push("functional_impact"),r&&x.push("neurodivergent_support"),c&&x.push("executive_support"),v/h>=.65&&x.push("masking_load");let L=["Este perfil es una herramienta de bienestar y autoconocimiento; no constituye diagn\xF3stico m\xE9dico ni psicol\xF3gico."];return r&&L.push("Tu cribado tipo AQ-10 sali\xF3 elevado. Es una se\xF1al para conversar con un profesional de salud mental, no una etiqueta diagn\xF3stica."),c&&L.push("Tu cribado tipo ASRS sugiere carga ejecutiva alta. Vale la pena una evaluaci\xF3n profesional si interfiere con tu vida diaria."),(x.includes("mood_priority")||x.includes("anxiety_priority"))&&L.push("Si aparece desesperanza persistente o ansiedad que limita tu d\xEDa a d\xEDa, busca acompa\xF1amiento profesional. En crisis, contacta a tu l\xEDnea local de emergencia."),{aq10:{score:n,max:o,percent:Math.round(n/o*100),projected10:Math.round(n/o*10),cutEquivalence:"\u2265 6/10",flag:r},asrs:{score:l,max:u,percent:Math.round(l/u*100),projected6:Math.round(l/u*24),cutEquivalence:"\u2265 4/6 \xEDtems sombreados (parte A)",flag:c},catq:{score:v,max:h,maskingIndex:Math.round(v/h*100)},triage:{goals:S,symptoms:b,future:E,commitment:C,minutes:g,flags:x},disclaimers:L}}function fe(e,a=ne()){let t=He(e,a),s=_(t.vak,Q),i=_(t.gardner,Y),n=_(t.riasec,J),o=_(t.tki,G),r=K(s,Q),d=K(i,Y),l=K(n,J),u=K(o,G),c=Ge(e),y=Ve(c),v=Ue(e.LIT_F||[],e.LIT_D||[]),h=Ke(t,v,c),S=Qe(h,c,o,v),b=Ye(e),E={scores:Object.fromEntries(Q.map(p=>[p,s[p]])),dominant:r[0].key,dominantName:ye[r[0].key],ranking:r.map(p=>({key:p.key,name:ye[p.key],score:p.score})),mix:r.map(p=>p.key).join("")},C={scores:Object.fromEntries(Y.map(p=>[p,i[p]])),top2:d.slice(0,2).map(p=>({key:p.key,name:he[p.key],score:p.score})),ranking:d.map(p=>({key:p.key,name:he[p.key],score:p.score}))},g={scores:Object.fromEntries(J.map(p=>[p,n[p]])),code:l.slice(0,3).map(p=>p.key).join(""),top3:l.slice(0,3).map(p=>({key:p.key,name:ve[p.key],score:p.score})),ranking:l.map(p=>({key:p.key,name:ve[p.key],score:p.score}))},x={scores:Object.fromEntries(G.map(p=>[p,o[p]])),raw:Object.fromEntries(G.map(p=>[p,o[`${p}_raw`]])),style:u[0].key,styleName:ie[u[0].key],secondary:u[1].key,secondaryName:ie[u[1].key],ranking:u.map(p=>({key:p.key,name:ie[p.key],score:p.score}))},L=y.biotype!==v.dominant;return{version:"1.0.0",computedAt:new Date().toISOString(),vectors:t,executive:{shift:Math.round(_(t.ejecutivo,["shift","focus","inhib"]).shift||0),focus:Math.round(_(t.ejecutivo,["shift","focus","inhib"]).focus||0),inhib:Math.round(_(t.ejecutivo,["shift","focus","inhib"]).inhib||0)},vak:E,gardner:C,riasec:g,tki:x,tipi:c,eysenck:y,littauer:v,cloninger:h,fisher:S,screenings:b,flags:{mixedProfile:L,neurodivergent:b.aq10.flag||b.asrs.flag,characterDeficit:v.characterDeficit,highMasking:b.catq.maskingIndex>=65}}}function ne(){let e={};for(let a of z)for(let t of a.options)e[`${a.id}:${t.id}`]=t.vector;return e}function Se(e={}){let a={...e},t=[];for(let r of O){let d=a[r.id]&&typeof a[r.id]=="object"?{...a[r.id]}:{};for(let l of r.pairs){let u=Number(d[l.id]);if(!Number.isFinite(u))d[l.id]=4,t.push(`${r.id}.${l.id}: sin respuesta \u2192 4 (neutro)`);else{let c=Math.min(7,Math.max(1,Math.round(u)));c!==u&&t.push(`${r.id}.${l.id}: ${u} \u2192 ${c}`),d[l.id]=c}}a[r.id]=d}let s=new Set(B.map(r=>r.id)),i=new Set(H.map(r=>r.id));Array.isArray(a.LIT_F)&&(a.LIT_F=[...new Set(a.LIT_F.filter(r=>s.has(r)))]),Array.isArray(a.LIT_D)&&(a.LIT_D=[...new Set(a.LIT_D.filter(r=>i.has(r)))]);for(let r of M){let d=a[r.id]&&typeof a[r.id]=="object"?a[r.id]:{},l={};for(let u of r.statements){let c=Number(d[u.id]);l[u.id]=Number.isFinite(c)?Math.min(4,Math.max(0,Math.round(c))):0}a[r.id]=l}let n=U.find(r=>r.id==="TRG_15"),o=U.find(r=>r.id==="TRG_16");if(Array.isArray(a.TRG_15)){let r=new Set(n.options.map(d=>d.id));a.TRG_15=a.TRG_15.filter(d=>r.has(d))}if(Array.isArray(a.TRG_16)){let r=new Set(o.options.map(l=>l.id)),d=a.TRG_16.filter(l=>r.has(l));a.TRG_16=d.length?d:["ninguno"]}return a.TRG_17&&typeof a.TRG_17=="string"&&(a.TRG_17={choice:a.TRG_17,text:""}),a.TRG_18||(a.TRG_18="min15",t.push("TRG_18: sin respuesta \u2192 min15")),{answers:a,notes:t}}function ke(e){let a=[];if(!e||typeof e!="object")return["Payload invalido"];for(let i of z)e[i.id]?i.options.some(n=>n.id===e[i.id])||a.push(`Opcion invalida en ${i.id}`):a.push(`Falta ${i.id}`);for(let i of O){let n=e[i.id];if(!n||typeof n!="object")a.push(`Falta ${i.id}`);else for(let o of i.pairs){let r=Number(n[o.id]);(!Number.isFinite(r)||r<1||r>7)&&a.push(`Valor invalido en ${i.id}.${o.id}`)}}let t=e.LIT_F,s=e.LIT_D;(!Array.isArray(t)||t.length<4)&&a.push("Selecciona al menos 4 fortalezas"),(!Array.isArray(s)||s.length<3)&&a.push("Selecciona al menos 3 debilidades");for(let i of M)(!e[i.id]||typeof e[i.id]!="object")&&a.push(`Falta ${i.id}`);return(!Array.isArray(e.TRG_15)||e.TRG_15.length<1)&&a.push("Elige al menos una prioridad (TRG_15)"),(!Array.isArray(e.TRG_16)||e.TRG_16.length<1)&&a.push("Elige al menos una opci\xF3n en TRG_16"),e.TRG_17||a.push("Falta TRG_17"),e.TRG_18||a.push("Falta TRG_18"),a}var Je=[{name:"Ingenier\xEDa de proyectos",riasec:["R","C","I"],gardner:["logmat","esp","kin"],bio:["C","F"]},{name:"Mec\xE1nica y mantenimiento industrial",riasec:["R","C"],gardner:["kin","esp"],bio:["C","M"]},{name:"Agronom\xEDa y producci\xF3n de campo",riasec:["R","I"],gardner:["nat","kin"],bio:["F","M"]},{name:"Seguridad e higiene industrial",riasec:["R","C"],gardner:["logmat","kin"],bio:["C","F"]},{name:"Entrenamiento f\xEDsico y kinesiolog\xEDa",riasec:["R","S"],gardner:["kin","inter"],bio:["S","C"]},{name:"Investigaci\xF3n cient\xEDfica",riasec:["I","R"],gardner:["logmat","ling"],bio:["M","F"]},{name:"Psicolog\xEDa cl\xEDnica y psicoterapia",riasec:["I","S","A"],gardner:["ling","inter","intra"],bio:["M","S"]},{name:"Medicina y especialidades cl\xEDnicas",riasec:["I","S"],gardner:["logmat","inter"],bio:["M","C"]},{name:"An\xE1lisis de datos y ciencia de datos",riasec:["I","C"],gardner:["logmat","esp"],bio:["M","F"]},{name:"Auditor\xEDa forense y control de fraude",riasec:["I","C"],gardner:["logmat","intra"],bio:["M","F"]},{name:"Dise\xF1o de producto y UX/UI",riasec:["A","I","R"],gardner:["esp","ling"],bio:["M","S"]},{name:"Comunicaci\xF3n audiovisual y contenido",riasec:["A","E"],gardner:["ling","esp","mus"],bio:["S","C"]},{name:"Escritura, guion y copywriting",riasec:["A","I"],gardner:["ling","intra"],bio:["M","S"]},{name:"M\xFAsica y producci\xF3n sonora",riasec:["A","R"],gardner:["mus","esp"],bio:["M","S"]},{name:"Arquitectura y dise\xF1o de espacios",riasec:["A","R","I"],gardner:["esp","logmat","kin"],bio:["M","C"]},{name:"Docencia y formaci\xF3n de adultos",riasec:["S","A"],gardner:["ling","inter"],bio:["S","F"]},{name:"Recursos humanos y desarrollo de talento",riasec:["S","E","C"],gardner:["inter","ling"],bio:["S","F"]},{name:"Enfermer\xEDa y cuidado asistencial",riasec:["S","R"],gardner:["inter","kin"],bio:["F","M"]},{name:"Trabajo social y programas comunitarios",riasec:["S","E"],gardner:["inter","nat"],bio:["F","S"]},{name:"Coaching y consultor\xEDa de desarrollo",riasec:["S","E"],gardner:["inter","ling","intra"],bio:["S","C"]},{name:"Direcci\xF3n comercial y ventas consultivas",riasec:["E","S"],gardner:["ling","inter"],bio:["C","S"]},{name:"Emprendimiento y nuevos negocios",riasec:["E","R"],gardner:["logmat","inter"],bio:["C","S"]},{name:"Marketing de crecimiento y performance",riasec:["E","A","I"],gardner:["logmat","ling"],bio:["C","S"]},{name:"Bienes ra\xEDces e inversi\xF3n inmobiliaria",riasec:["E","C"],gardner:["inter","esp"],bio:["C","S"]},{name:"Direcci\xF3n general y estrategia",riasec:["E","C"],gardner:["logmat","inter","intra"],bio:["C","F"]},{name:"Finanzas, banca y control de gesti\xF3n",riasec:["C","I"],gardner:["logmat"],bio:["M","F"]},{name:"Contabilidad y auditor\xEDa",riasec:["C","I"],gardner:["logmat","intra"],bio:["M","F"]},{name:"Log\xEDstica y cadena de suministro",riasec:["C","R"],gardner:["logmat","esp"],bio:["F","C"]},{name:"Administraci\xF3n y operaciones",riasec:["C","S"],gardner:["logmat","inter"],bio:["F","C"]},{name:"Compliance y gesti\xF3n de riesgos",riasec:["C","I"],gardner:["logmat","ling"],bio:["M","F"]}];function Ae(e,a=6){let{riasec:t,gardner:s,littauer:i}=e;return Je.map(o=>{let r=o.riasec.reduce((c,y,v)=>c+(t.scores[y]||0)*(v===0?1:.7),0)/o.riasec.length,d=o.gardner.reduce((c,y,v)=>c+(s.scores[y]||0)*(v===0?1:.7),0)/o.gardner.length,l=0;o.bio.includes(i.dominant)&&(l+=22),o.bio.includes(i.secondary)&&(l+=10);let u=r*.45+d*.3+l;return{...o,score:Math.round(u),riasecScore:Math.round(r),gardnerScore:Math.round(d)}}).sort((o,r)=>r.score-o.score).slice(0,a).map(o=>({name:o.name,score:o.score,fit:o.score>=70?"Alta":o.score>=50?"Media-alta":"Media",why:`RIASEC ${o.riasec.join("\xB7")} \xB7 Gardner ${o.gardner.map(r=>We[r]).join("/")} \xB7 ${i.dominantName}`}))}var We={ling:"Ling\xFC\xEDstica",logmat:"L\xF3gica",esp:"Espacial",mus:"Musical",kin:"Kinest\xE9sica",inter:"Interpersonal",intra:"Intrapersonal",nat:"Naturalista"},oe={S:{name:"Sangu\xEDneo",lever:"Entusiasmo y contagio emocional. Vendes con energ\xEDa y cercan\xEDa.",watchOut:"Verborrea e interrupci\xF3n: ocupas el 70% del aire de la conversaci\xF3n.",scripts:["Cuando sientas que interrumpes: \xABEspera, cu\xE9ntame un poco m\xE1s de eso\xBB (cede el turno y luego retoma).","Antes de presentar: escribe tus 3 puntos clave en una tarjeta. Si no est\xE1n ah\xED, no lo dices.","Cierre con micro-metas dopamin\xE9rgicas: divide la venta en 3 s\xEDes peque\xF1os, no en un s\xED gigante."],microGoal:"Dosificar la energ\xEDa en tramos de 20 minutos con pausa de 2 minutos.",relationship:"Tu calidez abre puertas; la constancia en el seguimiento las mantiene abiertas. Agenda recordatorios visuales."},C:{name:"Col\xE9rico",lever:"Decisi\xF3n y velocidad. Transmites seguridad y cierras r\xE1pido.",watchOut:"Tono imperativo y baja escucha: la otra persona se siente atropellada.",scripts:["Sustituye \xABTienes que\u2026\xBB por \xAB\xBFC\xF3mo lo ves si\u2026?\xBB: misma direcci\xF3n, otra puerta.","Regla 2:1 \u2014 dos preguntas antes de cada afirmaci\xF3n en la negociaci\xF3n.","Cuando quieras ganar: \xABQuiero entender antes de proponer\xBB y pide una pausa de 10 minutos si la temperatura sube."],microGoal:"Escucha activa: parafrasea lo que o\xEDste antes de responder.",relationship:"Tu fortaleza es la iniciativa; tu riesgo, la insensibilidad percibida. Nombra el logro del otro antes del tuyo."},M:{name:"Melanc\xF3lico",lever:"Profundidad, rigor y confianza que se construye con hechos.",watchOut:"Par\xE1lisis por an\xE1lisis: perfeccionismo que retrasa la entrega y el cierre.",scripts:["Define el \xABejercicio suficientemente bueno\xBB: criterio de listo (3 puntos) escrito antes de empezar.","Regla de los 80/20: entrega al 80% en el plazo y mejora despu\xE9s.","En ventas: pon fecha y precio temprano; sin eso, el an\xE1lisis se vuelve excusa."],microGoal:"Cerrar y publicar algo imperfecto cada semana.",relationship:"Tu lealtad es enorme; tu riesgo es el resentimiento acumulado. Di la molestia peque\xF1a el mismo d\xEDa."},F:{name:"Flem\xE1tico",lever:"Estabilidad, escucha y capacidad de sostener climas dif\xEDciles.",watchOut:"Resistencia pasiva: dices s\xED con la boca y no con el calendario.",scripts:["Frase de asertividad enlatada: \xABPuedo hacerlo, pero necesito mover X. \xBFCu\xE1l priorizamos?\xBB.","Di que no en 12 palabras o menos, sin justificar tres veces.","Toma la iniciativa una vez al d\xEDa: propone t\xFA la siguiente acci\xF3n al final de cada reuni\xF3n."],microGoal:"Una acci\xF3n de iniciativa y una negativa amable por d\xEDa.",relationship:"Tu paz sostiene v\xEDnculos; tu silencio acumula tensi\xF3n. Nombra lo que necesitas antes de que explote."}},se={V:{label:"Visual",toSelf:"Piensa en im\xE1genes y esquemas; si no lo ves, no lo entiendes.",toOther:"Usa listas, gr\xE1ficos, capturas y comparativas visuales. Muestra antes de explicar."},A:{label:"Auditivo",toSelf:"Procesas hablando y escuchando; el ruido te distrae.",toOther:"Explica en voz alta, resume verbalmente, usa met\xE1foras sonoras y pide que te lo repita."},K:{label:"Kinest\xE9sico",toSelf:"Aprendes tocando, probando y movi\xE9ndote.",toOther:"Ofrece demostraciones, pruebas gratuitas y experiencia directa; evita presentaciones largas."}},re={comp:{label:"Tibur\xF3n (competitivo)",strength:"Ganas terreno y defiendes valor.",risk:"Ganas la discusi\xF3n y pierdes la relaci\xF3n.",tactic:"Antes de presionar, pregunta: \xAB\xBFQu\xE9 tendr\xEDa que pasar para que esto sea un s\xED para ambos?\xBB."},colab:{label:"B\xFAho (colaborativo)",strength:"Construyes acuerdos que duran.",risk:"Sobrenegocias y retrasas decisiones simples.",tactic:"Pon l\xEDmite de tiempo: si no hay acuerdo en 15 minutos, decide con el 80% de la informaci\xF3n."},comprom:{label:"Zorro (compromiso)",strength:"Rapidez y pragmatismo.",risk:"Cedes valor por cerrar hoy.",tactic:"Fija tu m\xEDnimo antes de la conversaci\xF3n y no lo cruces sin contrapartida."},evit:{label:"Tortuga (evitativo)",strength:"Evitas escaladas innecesarias.",risk:"Los problemas peque\xF1os se vuelven deudas grandes.",tactic:"Regla de 24 h: ning\xFAn tema inc\xF3modo pasa m\xE1s de un d\xEDa sin nombrarse."},acom:{label:"Oso (complaciente)",strength:"Cuida el v\xEDnculo y baja la tensi\xF3n.",risk:"Dices s\xED y luego te resent\xEDs.",tactic:"Usa la pausa: \xABLo pienso y te confirmo ma\xF1ana a las 10\xBB. Nunca digas s\xED en caliente."}},W={S:{biotype:"Sangu\xEDneo",mizaj:"Caliente y h\xFAmedo",principle:"Dieta FR\xCDA y SECA para compensar el exceso de calor y humedad.",include:["Repollo y col","Coliflor","Frutos \xE1cidos (lim\xF3n, manzana verde, c\xEDtricos)","Legumbres","Cereales integrales","Verduras amargas (r\xFAcula, achicoria, berro)"],exclude:["Az\xFAcares refinados","Carnes grasas en salsa","Alcohol","Frituras y reposter\xEDa","Exceso de l\xE1cteos dulces"],exercise:"Aer\xF3bico moderado, 15-20 min diarios. Evita el sobreentrenamiento y las sesiones largas de alta intensidad.",sleep:"6-7 horas. No exceder 8 h: el exceso de sue\xF1o agrava la humedad.",healing:["Regula el exceso de est\xEDmulo: una hora sin pantallas antes de dormir.","Practica el silencio deliberado: 5 minutos diarios sin hablar ni escuchar nada.","Cierra proyectos antes de abrir otros; tu sistema se dispersa con la novedad."]},C:{biotype:"Col\xE9rico",mizaj:"Caliente y seco",principle:"Dieta FR\xCDA y H\xDAMEDA para enfriar y refrescar el exceso de calor seco.",include:["Pepino","Lechuga","Sand\xEDa","Pera","Arroz","Avena","L\xE1cteos frescos","Cilantro"],exclude:["Carnes rojas asadas","Frituras","Exceso de sal","Chiles y picantes","Alcohol y caf\xE9 en exceso"],exercise:"Ejercicio suave matutino o vespertino. Evita competir contigo mismo todos los d\xEDas.",sleep:"7-8 horas con reposo de 45 min post-almuerzo (clave para tu sistema nervioso).",healing:["Enfr\xEDa la reacci\xF3n: 4 respiraciones largas antes de responder cualquier correo tenso.","Delegaci\xF3n semanal: una tarea que sueltas aunque la har\xEDas mejor.","Ritual de cierre del d\xEDa: escribe lo hecho, no lo pendiente."]},M:{biotype:"Melanc\xF3lico",mizaj:"Fr\xEDo y seco",principle:"Dieta CALIENTE y H\xDAMEDA para templar y humectar el exceso de fr\xEDo seco.",include:["Avena","Cebada","Trigo integral","Espinaca cocida","Jengibre","Mango","Almendras y pistachos","Miel","Manzanilla y Shatavari"],exclude:["Carnes pesadas","Alimentos secos y fr\xEDos","Cenas tard\xEDas","Exceso de caf\xE9 en ayunas"],exercise:"Caminatas r\xEDtmicas y masajes con aceites templados. Movimiento suave y constante > intensidad.",sleep:"7-8 horas con horario fijo; la irregularidad dispara la rumiaci\xF3n nocturna.",healing:["Ritual de templanza: ba\xF1o tibio o ducha caliente al final del d\xEDa.","Rumia con horario: 15 minutos de preocupaci\xF3n programada y luego se cierra.","Sol y contacto: 20 minutos de luz natural y una conversaci\xF3n humana al d\xEDa."]},F:{biotype:"Flem\xE1tico",mizaj:"Fr\xEDo y h\xFAmedo",principle:"Dieta CALIENTE y SECA para activar el metabolismo y disolver la humedad.",include:["Ajo","Cebolla","R\xE1bano picante","Arroz al curry","Huevo","Nueces","Azafr\xE1n","Infusiones de comino negro y menta"],exclude:["L\xE1cteos pesados","Sopas espesas","Pl\xE1tano","Aguacate","Exceso de harinas refinadas"],exercise:"Ejercicio vigoroso diario para activar dopamina: fuerza 3 veces por semana.",sleep:"7 horas y levantarse a la misma hora; no dormir siestas largas.",healing:["Activaci\xF3n matutina: 10 minutos de movimiento antes del primer mensaje del d\xEDa.","Decide con fecha l\xEDmite: escribe la decisi\xF3n y la hora en que la tomar\xE1s.","Expresi\xF3n emocional: di una emoci\xF3n por d\xEDa en voz alta."]}},Xe=[{id:"HB_BREATH",bio:"any",goals:["ansiedad","calma"],vak:"any",minutes:1,title:"Tres respiraciones de anclaje",anchor:"Despu\xE9s de abrir la laptop por la ma\xF1ana",microAction:"Respiro hondo tres veces",celebration:"Suelto los hombros y sonr\xEDo.",lowEnergy:{anchor:"Al abrir la laptop",microAction:"Una sola respiraci\xF3n larga",celebration:"Digo \xABhecho\xBB."},rationale:"Baja la activaci\xF3n auton\xF3mica y crea un punto de control antes del ruido digital."},{id:"HB_RUMIA",bio:"M",goals:["ansiedad","depresion"],vak:"V",minutes:3,title:"Rumiaci\xF3n con horario",anchor:"Despu\xE9s de cenar",microAction:"Escribo la preocupaci\xF3n",celebration:"Cierro el cuaderno de golpe.",lowEnergy:{anchor:"Al sentir la rumia",microAction:"Nombro la emoci\xF3n",celebration:"Respiro y digo \xABvisto\xBB."},rationale:"Contener la rumia en un espacio definido reduce su frecuencia y su intensidad."},{id:"HB_SLEEP",bio:"any",goals:["ansiedad","calma","depresion"],vak:"A",minutes:2,title:"Bajada de revoluciones",anchor:"Cuando apago la pantalla",microAction:"Escucho un minuto de silencio",celebration:"Apago la luz sonriendo.",lowEnergy:{anchor:"Al apagar la pantalla",microAction:"Exhalo largo una vez",celebration:"Me digo \xABdescanso\xBB."},rationale:"Ritual de cierre: se\xF1al de seguridad para el sistema nervioso antes del sue\xF1o."},{id:"HB_S_FOCO",bio:"S",goals:["ventas","vocacion"],vak:"V",minutes:2,title:"Tarjeta de tres puntos",anchor:"Antes de cada reuni\xF3n o llamada",microAction:"Escribo tres puntos clave",celebration:"Palmada en el escritorio.",lowEnergy:{anchor:"Antes de la llamada",microAction:"Escribo una sola frase",celebration:"Pulgar arriba."},rationale:"Externizar la estructura compensa la dispersi\xF3n natural del sangu\xEDneo."},{id:"HB_S_PAUSA",bio:"S",goals:["ventas","relaciones"],vak:"K",minutes:2,title:"Pausa antes de interrumpir",anchor:"Cuando siento que voy a interrumpir",microAction:"Cuento hasta tres",celebration:"Sonr\xEDo y asiento.",lowEnergy:{anchor:"Al querer interrumpir",microAction:"Cuento hasta uno",celebration:"Respiro."},rationale:"A\xF1ade un micro-retraso entre impulso y palabra: la palanca m\xE1s rentable del sangu\xEDneo."},{id:"HB_C_TONO",bio:"C",goals:["ventas","relaciones"],vak:"A",minutes:2,title:"Suavizador de tono",anchor:"Antes de enviar un mensaje tenso",microAction:"A\xF1ado una pregunta",celebration:"Digo \xABdiplomacia\xBB.",lowEnergy:{anchor:"Antes de enviar",microAction:"Releo una vez",celebration:"Exhalo."},rationale:"Convierte el impulso imperativo en apertura: mantiene la direcci\xF3n y protege el v\xEDnculo."},{id:"HB_C_PAUSA45",bio:"C",goals:["ansiedad","calma"],vak:"K",minutes:5,title:"Reposo post-almuerzo",anchor:"Despu\xE9s de almorzar",microAction:"Me siento y respiro cinco minutos",celebration:"Bebo agua y sonr\xEDo.",lowEnergy:{anchor:"Tras almorzar",microAction:"Cierro los ojos un minuto",celebration:"Suspiro."},rationale:"Regula el eje de estr\xE9s y evita el pico de cortisol de la tarde."},{id:"HB_M_SUFICIENTE",bio:"M",goals:["vocacion","depresion","ventas"],vak:"V",minutes:3,title:"Criterio de suficientemente bueno",anchor:"Antes de empezar una tarea",microAction:"Defino tres criterios de listo",celebration:"Marco la casilla.",lowEnergy:{anchor:"Antes de empezar",microAction:"Escribo \xABlisto = hecho\xBB",celebration:"Respiro."},rationale:"Ant\xEDdoto directo contra la par\xE1lisis por an\xE1lisis."},{id:"HB_M_SOL",bio:"M",goals:["depresion","calma"],vak:"K",minutes:5,title:"Luz y movimiento",anchor:"Despu\xE9s de almorzar",microAction:"Camino cinco minutos al sol",celebration:"Levanto la cara al cielo.",lowEnergy:{anchor:"Despu\xE9s de almorzar",microAction:"Sal al balc\xF3n un minuto",celebration:"Respiro profundo."},rationale:"Luz natural y movimiento: reguladores del estado de \xE1nimo de primera l\xEDnea."},{id:"HB_F_INICIATIVA",bio:"F",goals:["vocacion","ventas"],vak:"A",minutes:1,title:"Una iniciativa por d\xEDa",anchor:"Despu\xE9s de terminar una reuni\xF3n",microAction:"Propongo la siguiente acci\xF3n",celebration:"Digo \xAByo lider\xE9\xBB.",lowEnergy:{anchor:"Al final de la reuni\xF3n",microAction:"Escribo una acci\xF3n",celebration:"Sonr\xEDo."},rationale:"Entrena la asertividad en el momento de menor fricci\xF3n."},{id:"HB_F_MOV",bio:"F",goals:["calma","vocacion","depresion"],vak:"K",minutes:5,title:"Activaci\xF3n dopamin\xE9rgica",anchor:"Despu\xE9s de levantarme",microAction:"Muevo el cuerpo cinco minutos",celebration:"Choco mis manos.",lowEnergy:{anchor:"Al levantarme",microAction:"Estiro los brazos",celebration:"Digo \xABarranco\xBB."},rationale:"Sube dopamina y reduce la humedad/frialdad del flem\xE1tico: energ\xEDa y decisi\xF3n."},{id:"HB_ANY_RESP",bio:"any",goals:["ansiedad","calma","depresion"],vak:"any",minutes:3,title:"Pausa de un minuto",anchor:"Cuando siento que la mente se acelera",microAction:"Respiro 4-7-8 una vez",celebration:"Me digo \xABpresente\xBB.",lowEnergy:{anchor:"Al acelerarme",microAction:"Exhalo largo",celebration:"Suelto el aire."},rationale:"Meta-h\xE1bito universal: interrumpe la escalada antes de que tome el control."},{id:"HB_ANY_VENTA",bio:"any",goals:["ventas"],vak:"A",minutes:3,title:"Guion de apertura",anchor:"Antes de cada llamada comercial",microAction:"Digo una pregunta abierta",celebration:"Pulgar arriba al espejo.",lowEnergy:{anchor:"Antes de llamar",microAction:"Respiro y saludo",celebration:"Sonr\xEDo."},rationale:"Abrir con pregunta en lugar de presentaci\xF3n duplica la escucha del cliente."}];function Ee(e,a={}){let t=a.minutes||e.screenings.triage.minutes||15,s=e.screenings.triage.goals.length?e.screenings.triage.goals:["calma"],i=e.littauer.dominant,n=e.vak.dominant,o=c=>{let y=0;return c.bio===i&&(y+=3),c.bio==="any"&&(y+=1),c.bio===e.littauer.secondary&&(y+=1.5),y+=c.goals.filter(v=>s.includes(v)).length*2,c.vak===n&&(y+=1.5),c.vak==="any"&&(y+=.5),c.minutes<=t&&(y+=.5),y},r=Xe.map(c=>({...c,relevance:o(c)})).sort((c,y)=>y.relevance-c.relevance),d=t<=5?2:t<=15?3:5,l=[],u=t;for(let c of r){if(l.length>=d)break;c.minutes>Math.max(u,1)||(l.push(c),u-=c.minutes)}return{minutesBudget:t,target:d,identityAnchor:e.screenings.triage.future,habits:l.map(c=>({id:c.id,title:c.title,minutes:c.minutes,category:c.bio==="any"?"universal":`biotipo_${c.bio}`,recipe:`${c.anchor} + \xAB${c.microAction}\xBB + ${c.celebration}`,details:{anchor:c.anchor,microAction:c.microAction,celebration:c.celebration},lowEnergy:{recipe:`${c.lowEnergy.anchor} + \xAB${c.lowEnergy.microAction}\xBB + ${c.lowEnergy.celebration}`,details:c.lowEnergy},rationale:c.rationale})),doList:W[i].include,dontList:W[i].exclude}}function xe(e){let a=e.littauer.flatProfile?"Flem\xE1tico Polifac\xE9tico":`${e.littauer.dominantName}-${e.littauer.secondaryName}`,t=e.riasec.top3[0]?.name||"Sin c\xF3digo";return`${a} \xB7 ${t} \xB7 ${e.vak.dominantName}`}function Ze(e){let{littauer:a,eysenck:t,riasec:s,fisher:i}=e;return`${a.flatProfile?"Tu distribuci\xF3n es plana: un perfil polifac\xE9tico que se adapta a cualquier entorno, con riesgo de no tener un centro definido.":`Tu biotipo dominante es ${a.dominantName} con ${a.secondaryName} de apoyo: ${t.reactivity}`} Tu vocaci\xF3n se inclina hacia ${s.top3.map(o=>o.name).join(" \xB7 ")} y tu eje neuroqu\xEDmico dominante es ${i.dominantLabel.split("\xB7")[1]?.trim()||i.dominantLabel}.`}function ea(e){let{eysenck:a,littauer:t,fisher:s,cloninger:i,riasec:n,vak:o,gardner:r,tki:d,tipi:l,screenings:u,flags:c}=e;return{id:"A",title:"Diagn\xF3stico integral",archetype:xe(e),summary:Ze(e),eysenck:{coordinates:{extraversion:a.x,stability:a.y,neuroticism:a.neuroticism},quadrant:a.quadrant,biotype:a.biotype,biotypeName:a.biotypeName,mizaj:a.mizaj,reactivity:a.reactivity,bigFive:l.percent,consistency:c.mixedProfile?`Coherencia mixta: Eysenck sugiere ${a.biotypeName} y la matriz Littauer sugiere ${t.dominantName}. Perfil adaptativo: lee ambos.`:`Coherencia alta: ambos marcos apuntan a ${t.dominantName}.`},temperament:{dominant:t.dominant,dominantName:t.dominantName,secondary:t.secondary,secondaryName:t.secondaryName,flatProfile:t.flatProfile,matrix:t.ranking,strengths:t.labels.strengths,weaknesses:t.labels.weaknesses,regulationRatio:t.ratio,regulationIndex:t.regulationIndex,characterDeficit:t.characterDeficit,deficits:t.deficits},neurochemistry:{axes:s.axes,cloninger:i,interpretation:{dopamina:"B\xFAsqueda de novedad y recompensa inmediata: tu motor de arranque.",serotonina:"Estabilidad, rutina y lealtad: tu ancla de continuidad.",testosterona:"Dominancia y decisi\xF3n: tu capacidad de imponer direcci\xF3n.",oxitocina:"V\xEDnculo y confianza: tu moneda relacional."}},vocational:{riasec:n,gardner:r,code:n.code,top2:r.top2},channel:{vak:o,adaptation:se[o.dominant]},conflict:{tki:d,guide:re[d.style]},flags:{neurodivergentSupport:c.neurodivergent,highMasking:c.highMasking,characterDeficit:c.characterDeficit,aq10:{score:u.aq10.score,percent:u.aq10.percent,flagged:u.aq10.flag},asrs:{score:u.asrs.score,percent:u.asrs.percent,flagged:u.asrs.flag},catq:u.catq,triage:u.triage.flags},disclaimers:u.disclaimers}}function aa(e){let a=oe[e.littauer.dominant],t=oe[e.littauer.secondary],s=re[e.tki.style],i=se[e.vak.dominant],n=Ae(e,6),o=e.screenings.triage.goals,r=[`Abre con una pregunta, no con una presentaci\xF3n (${e.tki.styleName}).`,`Traduce tu propuesta al canal ${i.label} del cliente: ${i.toOther}`,`Tu palanca: ${a.lever}`,`Tu riesgo a vigilar: ${a.watchOut}`,...a.scripts],d=[a.relationship,`Con un ${t.name} como interlocutor: ${t.relationship}`,s.tactic,e.flags.highMasking?"Alto \xEDndice de enmascaramiento: agenda pausas de recuperaci\xF3n social despu\xE9s de interacciones intensas.":"Dosifica la exposici\xF3n social: cuida una pausa de recuperaci\xF3n despu\xE9s de bloques de interacci\xF3n."];return{id:"B",title:"Matriz de recomendaciones t\xE1cticas",vocational:{headline:`${e.riasec.code} + ${e.gardner.top2.map(l=>l.name).join(" + ")} + ${e.littauer.dominantName}`,careers:n,note:"Intersecci\xF3n tripartita entre c\xF3digo RIASEC, inteligencias de Gardner y temperamento dominante."},communication:{adaptiveSelf:`Tu temperamento ${a.name}: ${a.lever}`,playbook:{lever:a.lever,watchOut:a.watchOut,microGoal:a.microGoal,scripts:a.scripts},vakAdaptation:i,tki:{style:e.tki.styleName,...s}},sales:r,relations:d,priority:o}}function ta(e){let a=W[e.littauer.dominant];return{id:"C",title:"Dietoterapia temperamental y regulaci\xF3n del estilo de vida",framework:"Ilaj bil Ghiza \xB7 Unani \xB7 Waldorf \u2014 Ley de Compensaci\xF3n Alop\xE1tica",biotype:a.biotype,mizaj:a.mizaj,principle:a.principle,include:a.include,exclude:a.exclude,exercise:a.exercise,sleep:a.sleep,healing:a.healing,note:e.littauer.characterDeficit?"Tu matriz marca m\xE1s debilidades que fortalezas: a\xF1ade fricci\xF3n a los h\xE1bitos de desregulaci\xF3n y busca acompa\xF1amiento (d\xE9ficit sugerido en Autodirecci\xF3n SD y Cooperaci\xF3n CO).":"Tu matriz marca m\xE1s fortalezas que debilidades: usa esa capacidad de regulaci\xF3n para sostener el plan completo."}}function ia(e,a=[]){let t=Ee(e),s=a.filter(i=>i.vak_channel==="any"||i.vak_channel===e.vak.dominant).filter(i=>!i.temperament||i.temperament==="any"||i.temperament===e.littauer.dominant).slice(0,6).map(i=>({id:i.id,kind:i.kind,title:i.title,description:i.description,url:i.url,vak:i.vak_channel}));return{id:"D",title:"Motor de h\xE1bitos diarios (B = M \xB7 A \xB7 P)",model:"Receta Tiny Habits: [ancla existente] + [micro-comportamiento] + [celebraci\xF3n inmediata]",minutesBudget:t.minutesBudget,habits:t.habits,lowEnergySwitch:{label:"Versi\xF3n de d\xEDa de baja energ\xEDa",description:"Cuando reportes fatiga o \xE1nimo bajo en tu registro matutino, cada h\xE1bito se contrae a su expresi\xF3n m\xEDnima viable para sostener la racha sin culpa.",collapsed:t.habits.map(i=>({id:i.id,title:i.title,recipe:i.lowEnergy.recipe}))},doList:t.doList,dontList:t.dontList,media:s}}function $e(e,a=[]){return{version:e.version,generatedAt:new Date().toISOString(),profileMeta:{archetype:xe(e),code:`${e.riasec.code}-${e.littauer.dominant}-${e.vak.dominant}`},modules:[ea(e),aa(e),ta(e),ia(e,a)],disclaimers:e.screenings.disclaimers,wellnessNotice:"Perfilado Neuro-Conductual y Ruta de Optimizaci\xF3n Personal. Contenido de bienestar; no sustituye atenci\xF3n m\xE9dica ni psicol\xF3gica."}}var q="nexo_report_cache",ce="nexo_report_history",V="nexo_daily_logs",X=new Map;function R(e,a){try{let t=localStorage.getItem(e);return t?JSON.parse(t):a}catch{return X.has(e)?X.get(e):a}}function le(e,a){try{localStorage.setItem(e,JSON.stringify(a))}catch{X.set(e,a)}}function na(){return be.map(e=>({id:e.id,block:e.block,position:String(e.position),kind:e.kind,dimension:e.dimension,prompt:e.prompt,helper:e.helper||null,config:{...e.config||{},labels:e.labels||null,scoring_key:e.scoring_key||null},options:(e.options||e.pairs||e.statements||e.adjectives||[]).map(a=>{if(a.vector){let{vector:t,...s}=a;return s}return a})})).sort((e,a)=>e.block-a.block||Number(e.priority||0)-Number(a.priority||0))}function oa(e){let a=new Date().toISOString().slice(0,10),t=new Date(Date.now()-864e5).toISOString().slice(0,10),s=R(V,[]),i=s.find(u=>u.log_date===a),n=s.filter(u=>u.log_date!==a).sort((u,c)=>u.log_date<c.log_date?1:-1)[0],o=n?.log_date===t?Number(n.streak)+1:1,r={log_date:a,mood:Number(e.mood),energy:Number(e.energy),sleep_hours:e.sleepHours??null,habits_done:Number(e.habitsDone||0),habits_planned:Number(e.habitsPlanned||0),low_energy_mode:!!e.lowEnergy||Number(e.energy)<=2,streak:o,created_at:new Date().toISOString()},d=[r,...s.filter(u=>u.log_date!==a)].slice(0,60);le(V,d);let l=r.low_energy_mode;return{log:r,history:d,streak:o,lowEnergyApplied:l,message:l?"D\xEDa de baja energ\xEDa detectado: tus h\xE1bitos se contraen a su versi\xF3n m\xEDnima viable. La racha se mantiene.":"Registro guardado en este navegador. La constancia vale m\xE1s que la intensidad.",previousEntry:i||null}}var $={async status(){return{authenticated:!0,openAccess:!0,hasProfile:!!R(q,null),mode:"static",brand:"Nexo Biopsicosocial"}},async access(){return{ok:!0,mode:"static"}},async test(){let e=na();return{items:e,meta:{total:e.length,estimatedMinutes:5}}},async submit(e){let{answers:a}=Se(e),t=ke(a);if(t.length){let r=new Error("Respuestas incompletas o inv\xE1lidas");throw r.status=422,r.body={error:r.message,details:t},r}let s=fe(a,ne()),i=$e(s,[]),n=`local-${Date.now()}`;le(q,i);let o=R(ce,[]);return le(ce,[{assessmentId:n,completedAt:i.generatedAt,report:i},...o].slice(0,10)),{ok:!0,assessmentId:n,report:i,summary:i.profileMeta,mode:"static"}},async report(){let e=R(q,null);if(!e){let a=new Error("Todav\xEDa no tienes un informe guardado en este navegador.");throw a.status=404,a}return{assessmentId:"local",completedAt:e.generatedAt,report:e}},async track(){return{ok:!0,forwarded:!1,mode:"static"}},async logProgress(e){return oa(e)},async today(){let a=R(q,null)?.modules?.find(n=>n.id==="D"),t=R(V,[]),s=t[0]||null;return{lowEnergyMode:!!s?.low_energy_mode,streak:s?.streak||0,habits:a?.habits||[],habitsLowEnergy:a?.lowEnergySwitch?.collapsed||[],doList:a?.doList||[],dontList:a?.dontList||[],history:t}},reset(){[q,ce,V].forEach(e=>{try{localStorage.removeItem(e)}catch{}X.delete(e)})},exportAll(){let e=R(q,null),a=R(V,[]);return{generado:new Date().toISOString(),informe:e,registrosDiarios:a}}};function de(){return{}}var ue="nexo_answers_v1",Z={SIT_01:1,SIT_02:2,SIT_03:3,SIT_04:4,SIT_05:5,SIT_06:6,TIPI_07:7,TIPI_08:8,TIPI_09:9,TIPI_10:10,TIPI_11:11,LIT_F:12,LIT_D:13,SCR_12:14,SCR_13:15,SCR_14:16,TRG_15:17,TRG_16:18,TRG_17:19,TRG_18:20},sa={situational:"Bloque 1 \xB7 Juicio situacional",likert:"Bloque 2 \xB7 Personalidad",adjective:"Bloque 2 \xB7 Matriz de temperamento",binary:"Bloque 2 \xB7 Cribado",scale4:"Bloque 2 \xB7 Cribado",multi:"Bloque 3 \xB7 Triaje afectivo",choice:"Bloque 3 \xB7 Estado futuro"},ee=class{constructor(a,{onFinish:t,onProgress:s}){this.stage=a,this.onFinish=t,this.onProgress=s,this.items=[],this.answers=this.load(),this.index=0,this.busy=!1,this.pendingTimer=null}cancelPending(){this.pendingTimer&&(clearTimeout(this.pendingTimer),this.pendingTimer=null),this.busy=!1}load(){try{return JSON.parse(localStorage.getItem(ue)||"{}")}catch{return{}}}save(){try{localStorage.setItem(ue,JSON.stringify(this.answers))}catch{}}clear(){try{localStorage.removeItem(ue)}catch{}this.answers={}}async start(a){this.items=[...a].sort((s,i)=>{let n=Z[s.id]??99,o=Z[i.id]??99;return n-o});let t=this.items.findIndex(s=>!this.isAnswered(s));this.index=t===-1?0:t,this.render()}get current(){return this.items[this.index]}firstUnansweredIndex(){return this.items.findIndex(a=>!this.isAnswered(a))}jumpTo(a){a<0||a>=this.items.length||(this.cancelPending(),this.index=a,this.render())}positionOf(a){return Z[a]??this.items.findIndex(t=>t.id===a)+1}indexOf(a){return this.items.findIndex(t=>t.id===a)}isAnswered(a){let t=this.answers[a.id];if(t==null)return!1;switch(a.kind){case"situational":return!!t;case"choice":return typeof t=="string"?!!t:!!t?.choice;case"multi":return Array.isArray(t)&&t.length>0;case"adjective":return Array.isArray(t)&&t.length>=(a.config?.minSelect||1);case"likert":return!!(t&&a.options.every(s=>Number.isFinite(Number(t[s.id]))));case"binary":case"scale4":return a.options.length>0&&a.options.every(s=>t?.[s.id]!==void 0&&t?.[s.id]!==null);default:return!!t}}go(a){this.cancelPending();let t=this.index+a;if(!(t<0)){if(t>=this.items.length)return this.finish();this.index=t,this.render()}}advance(a=300){if(this.busy)return;this.busy=!0;let t=this.index;clearTimeout(this.pendingTimer),this.pendingTimer=setTimeout(()=>{this.pendingTimer=null,this.busy=!1,this.index===t&&this.go(1)},a)}async finish(){this.onProgress(this.items.length,this.items.length),this.onFinish(this.answers)}render(){this.cancelPending();let a=this.current;if(!a)return;this.onProgress(this.index+1,this.items.length);let t=`
+      <div class="q-block">
+        <p class="q-kicker">${sa[a.kind]||"Evaluaci\xF3n"} \xB7 \xEDtem ${Z[a.id]??this.index+1}</p>
+        <h2 class="q-title">${a.prompt}</h2>
+        ${a.helper?`<p class="q-helper">${a.helper}</p>`:""}
+      </div>`,s=this[`render_${a.kind}`]?this[`render_${a.kind}`](a):"";this.stage.innerHTML=t+s,this.stage.scrollTop=0,window.scrollTo({top:0,behavior:"instant"in window?"instant":"auto"}),this.wire(a)}render_situational(a){let t=this.answers[a.id];return`
+      <div class="options">
+        ${a.options.map(s=>`
+          <button class="option ${t===s.id?"is-picked":""}" data-option="${s.id}">
+            <span class="letter">${s.id}</span>
+            <span>${s.label}</span>
+          </button>`).join("")}
+      </div>`}render_likert(a){let{min:t=1,max:s=7}=a.config||{},i=Math.round((t+s)/2);this.answers[a.id]||(this.answers[a.id]={});for(let o of a.options)Number.isFinite(Number(this.answers[a.id][o.id]))||(this.answers[a.id][o.id]=i);this.save();let n=this.answers[a.id]||{};return`
+      ${a.options.map(o=>{let r=Number.isFinite(Number(n[o.id]))?Number(n[o.id]):Math.round((t+s)/2),d=Number.isFinite(Number(n[o.id]));return`
+          <div class="slider-card">
+            <p>${o.text}</p>
+            <input type="range" min="${t}" max="${s}" step="1" value="${r}"
+                   data-slider="${o.id}" ${d?'data-touched="1"':""} aria-label="${o.text}" />
+            <div class="scale-ends"><span>${t} \xB7 nada</span><span class="value" data-value-for="${o.id}">${r}</span><span>${s} \xB7 totalmente</span></div>
+          </div>`}).join("")}
+      <div class="stage-actions"><button class="btn btn-primary" data-continue>Continuar</button></div>`}render_adjective(a){let t=new Set(this.answers[a.id]||[]),s=a.id==="LIT_D";return`
+      <div class="chips">
+        ${a.options.map(i=>`<button class="chip ${t.has(i.id)?"is-picked":""} ${s?"danger":""}" data-chip="${i.id}">${i.label}</button>`).join("")}
+      </div>
+      <p class="counter" data-counter></p>
+      <div class="stage-actions"><button class="btn btn-primary" data-continue disabled>Continuar</button></div>`}render_binary(a){let t=this.answers[a.id]||{};return`
+      <div class="card">
+        ${a.options.map(s=>`
+          <div class="stack-row">
+            <p>${s.text}</p>
+            <div class="scale-btns">
+              <button class="scale-btn ${t[s.id]===1?"is-picked":""}" data-statement="${s.id}" data-value="1">S\xED</button>
+              <button class="scale-btn ${t[s.id]===0?"is-picked":""}" data-statement="${s.id}" data-value="0">No</button>
+            </div>
+          </div>`).join("")}
+      </div>`}render_scale4(a){let t=this.answers[a.id]||{},s=a.config?.labels||["Nunca","Casi nunca","A veces","Casi siempre","Siempre"];return`
+      <div class="card">
+        ${a.options.map(i=>`
+          <div class="stack-row">
+            <p>${i.text}</p>
+            <div class="scale-btns">
+              ${s.map((n,o)=>`
+                <button class="scale-btn ${Number(t[i.id])===o?"is-picked":""}"
+                        data-statement="${i.id}" data-value="${o}">${n}</button>`).join("")}
+            </div>
+          </div>`).join("")}
+      </div>`}render_multi(a){let t=new Set(this.answers[a.id]||[]),s=a.config?.maxSelect||3;return`
+      <div class="chips">
+        ${a.options.map(i=>`<button class="chip ${t.has(i.id)?"is-picked":""}" data-multi="${i.id}" data-exclusive="${i.exclusive?"1":"0"}">${i.label}</button>`).join("")}
+      </div>
+      <p class="counter" data-counter>M\xE1ximo ${s}</p>
+      <div class="stage-actions"><button class="btn btn-primary" data-continue ${t.size?"":"disabled"}>Continuar</button></div>`}render_choice(a){let t=this.answers[a.id],s=typeof t=="string"?t:t?.choice,i=typeof t=="object"&&t&&t.text||"";return`
+      <div class="options">
+        ${a.options.map(n=>`
+          <button class="option ${s===n.id?"is-picked":""}" data-choice="${n.id}">
+            <span class="letter">${s===n.id?"\u2713":""}</span>
+            <span>${n.label}</span>
+          </button>`).join("")}
+      </div>
+      ${a.config?.allowText?`<label class="field" style="margin-top:14px">
+               <span>Tu frase, con tus palabras <em>(opcional)</em></span>
+               <textarea data-free-text placeholder="${a.config.textPlaceholder||"Escr\xEDbela aqu\xED\u2026"}">${i}</textarea>
+             </label>`:""}
+      <div class="stage-actions"><button class="btn btn-primary" data-continue ${s?"":"disabled"}>Continuar</button></div>`}wire(a){let t=this.stage;t.querySelectorAll("[data-option]").forEach(n=>{n.addEventListener("click",()=>{this.answers[a.id]=n.dataset.option,this.save(),t.querySelectorAll("[data-option]").forEach(o=>o.classList.toggle("is-picked",o===n)),this.advance(280)})}),t.querySelectorAll("[data-slider]").forEach(n=>{let o=t.querySelector(`[data-value-for="${n.dataset.slider}"]`);n.addEventListener("input",()=>{o&&(o.textContent=n.value),this.answers[a.id]={...this.answers[a.id]||{},[n.dataset.slider]:Number(n.value)},this.save(),[...t.querySelectorAll("[data-slider]")].every(d=>d.dataset.touched==="1"||d===n)&&[...t.querySelectorAll("[data-slider]")].every(d=>Number.isFinite(Number(this.answers[a.id]?.[d.dataset.slider])))&&this.advance(900)}),n.addEventListener("change",()=>{n.dataset.touched="1"}),n.addEventListener("pointerdown",()=>{n.dataset.touched="1"})}),t.querySelectorAll("[data-chip]").forEach(n=>{n.addEventListener("click",()=>{let o=new Set(this.answers[a.id]||[]),r=n.dataset.chip;o.has(r)?o.delete(r):o.size<(a.config?.maxSelect||10)&&o.add(r),this.answers[a.id]=[...o],this.save(),n.classList.toggle("is-picked"),this.updateCounter(a);let d=o.size>=(a.config?.minSelect||1),l=t.querySelector("[data-continue]");l&&(l.disabled=!d),o.size>=(a.config?.maxSelect||10)&&this.advance(500)})}),this.updateCounter(a),t.querySelectorAll("[data-multi]").forEach(n=>{n.addEventListener("click",()=>{let o=new Set(this.answers[a.id]||[]),r=n.dataset.multi,d=n.dataset.exclusive==="1";o.has(r)?o.delete(r):(d?o.clear():o.delete([...o].find(u=>a.options.find(c=>c.id===u&&c.exclusive))),o.size<(a.config?.maxSelect||3)&&o.add(r)),this.answers[a.id]=[...o],this.save(),t.querySelectorAll("[data-multi]").forEach(u=>u.classList.toggle("is-picked",o.has(u.dataset.multi))),this.updateCounter(a);let l=t.querySelector("[data-continue]");l&&(l.disabled=o.size===0),o.size>=(a.config?.maxSelect||3)&&this.advance(500)})}),t.querySelectorAll("[data-statement]").forEach(n=>{n.addEventListener("click",()=>{let o=n.dataset.statement;this.answers[a.id]={...this.answers[a.id]||{},[o]:Number(n.dataset.value)},this.save(),t.querySelectorAll(`[data-statement="${o}"]`).forEach(r=>r.classList.toggle("is-picked",r===n)),this.isAnswered(a)&&this.advance(360)})}),t.querySelectorAll("[data-choice]").forEach(n=>{n.addEventListener("click",()=>{let o=this.answers[a.id],r=typeof o=="object"&&o&&o.text||"";this.answers[a.id]=a.config?.allowText?{choice:n.dataset.choice,text:r}:n.dataset.choice,this.save(),t.querySelectorAll("[data-choice]").forEach(l=>{let u=l===n;l.classList.toggle("is-picked",u),l.querySelector(".letter").textContent=u?"\u2713":""});let d=t.querySelector("[data-continue]");d&&(d.disabled=!1),a.config?.allowText||this.advance(300)})});let s=t.querySelector("[data-free-text]");s&&s.addEventListener("input",()=>{let n=this.answers[a.id];this.answers[a.id]={choice:typeof n=="string"?n:n?.choice||null,text:s.value},this.save()});let i=t.querySelector("[data-continue]");i&&i.addEventListener("click",()=>this.go(1))}updateCounter(a){let t=this.stage.querySelector("[data-counter]");if(!t)return;let s=(this.answers[a.id]||[]).length,i=a.config?.minSelect??1,n=a.config?.maxSelect??10;t.textContent=`${s} seleccionadas \xB7 m\xEDnimo ${i}, m\xE1ximo ${n}`}};var me=e=>String(e).replace(/[&<>"]/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[a]);function Ce(e){let i=30+e.extraversion/100*200,n=30+(100-e.stability)/100*200,o=30+200/2;return`
+  <svg viewBox="0 0 260 260" class="chart" role="img" aria-label="Coordenadas de Eysenck">
+    <rect x="30" y="30" width="200" height="200" rx="14" fill="#f7faf8" stroke="#dfe7e3"/>
+    <line x1="${o}" y1="30" x2="${o}" y2="230" stroke="#dfe7e3" stroke-dasharray="3 4"/>
+    <line x1="30" y1="${o}" x2="230" y2="${o}" stroke="#dfe7e3" stroke-dasharray="3 4"/>
+    <text x="40" y="50" font-size="10" fill="#6d847d">INTROVERTIDO \xB7 INESTABLE</text>
+    <text x="220" y="50" font-size="10" fill="#6d847d" text-anchor="end">EXTRAVERTIDO \xB7 INESTABLE</text>
+    <text x="40" y="220" font-size="10" fill="#6d847d">INTROVERTIDO \xB7 ESTABLE</text>
+    <text x="220" y="220" font-size="10" fill="#6d847d" text-anchor="end">EXTRAVERTIDO \xB7 ESTABLE</text>
+    <text x="${o}" y="250" font-size="9.5" fill="#6d847d" text-anchor="middle">EXTRAVERSI\xD3N \u2192</text>
+    <text x="18" y="${o}" font-size="9.5" fill="#6d847d" text-anchor="middle" transform="rotate(-90 18 ${o})">ESTABILIDAD \u2192</text>
+    <circle cx="${i}" cy="${n}" r="22" fill="#0e7c66" opacity=".12"/>
+    <circle cx="${i}" cy="${n}" r="7" fill="#0e7c66" stroke="#fff" stroke-width="2.5"/>
+    <text x="${i}" y="${n-16}" font-size="10.5" fill="#075243" text-anchor="middle" font-weight="600">${me(e.biotypeName||"")}</text>
+  </svg>`}function Te(e){let a=["R","I","A","S","E","C"],t={R:"Realista",I:"Investigador",A:"Art\xEDstico",S:"Social",E:"Emprendedor",C:"Convencional"},s=280,i=s/2,n=s/2+6,o=82,r=h=>Math.PI*2*h/6-Math.PI/2,d=(h,S)=>[i+Math.cos(r(h))*S,n+Math.sin(r(h))*S],l=[.33,.66,1].map(h=>`<polygon points="${a.map((b,E)=>d(E,o*h).join(",")).join(" ")}" fill="none" stroke="#e5eee9" />`).join(""),u=a.map((h,S)=>{let[b,E]=d(S,o);return`<line x1="${i}" y1="${n}" x2="${b}" y2="${E}" stroke="#e5eee9" />`}).join(""),c=a.map((h,S)=>{let b=Math.max(6,Number(e[h])||0)/100;return d(S,o*b).join(",")}).join(" "),y=a.map((h,S)=>{let b=Math.max(6,Number(e[h])||0)/100,[E,C]=d(S,o*b);return`<circle cx="${E}" cy="${C}" r="3.4" fill="#0e7c66" />`}).join(""),v=a.map((h,S)=>{let[b,E]=d(S,o+22),C=Math.abs(b-i)<12?"middle":b>i?"start":"end";return`<text x="${b}" y="${E+3}" font-size="9.5" text-anchor="${C}" fill="#38514a">${t[h]}</text>
+              <text x="${b}" y="${E+15}" font-size="8.5" text-anchor="${C}" fill="#8aa39b">${e[h]}%</text>`}).join("");return`
+  <svg viewBox="0 0 ${s} ${s}" class="chart" role="img" aria-label="Hex\xE1gono RIASEC">
+    ${l}${u}
+    <polygon points="${c}" fill="rgba(14,124,102,.16)" stroke="#0e7c66" stroke-width="1.8" stroke-linejoin="round"/>
+    ${y}${v}
+  </svg>`}function P(e,{warm:a=[],max:t=100}={}){return e.map(({label:s,value:i})=>{let n=Math.max(2,Math.min(100,Number(i)/t*100)),o=a.includes(s);return`
+      <div class="bar">
+        <div class="bar-head"><span>${me(s)}</span><span>${Math.round(i)}%</span></div>
+        <div class="bar-track"><div class="bar-fill ${o?"warm":""}" style="width:${n}%"></div></div>
+      </div>`}).join("")}function Ie(e){return e.map(a=>`
+      <div class="bar">
+        <div class="bar-head"><span>${me(a.label)}</span><span>${a.value}</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${Math.max(3,a.value)}%"></div></div>
+      </div>`).join("")}var m=e=>String(e??"").replace(/[&<>"]/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[a]),I=(e,a="")=>`<ul class="${a}">${(e||[]).map(t=>`<li>${m(t)}</li>`).join("")}</ul>`;function pe(e,a=""){return`<span class="badge ${a}">${m(e)}</span>`}function ra(e){let a={E:"Extraversi\xF3n",A:"Amabilidad",C:"Responsabilidad",ES:"Estabilidad emocional",O:"Apertura"},t=Object.entries(e.eysenck.bigFive).map(([n,o])=>({label:a[n]||n,value:o})),s=e.channel.vak.ranking.map(n=>({label:n.name,value:n.score})),i=e.neurochemistry.cloninger.character;return`
+  <div class="card">
+    <h3>Coordenadas de Eysenck y biotipo</h3>
+    <p class="hint">${m(e.eysenck.quadrant)} \xB7 ${m(e.eysenck.mizaj)}</p>
+    ${Ce({...e.eysenck.coordinates,biotypeName:e.eysenck.biotypeName})}
+    <p class="chart-caption">Extraversi\xF3n ${e.eysenck.coordinates.extraversion} \xB7 Estabilidad ${e.eysenck.coordinates.stability} \xB7 Neuroticismo ${e.eysenck.coordinates.neuroticism}</p>
+    <p class="note">${m(e.eysenck.reactivity)}</p>
+    <p class="note ${e.eysenck.consistency.startsWith("Coherencia alta")?"":"warm"}">${m(e.eysenck.consistency)}</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Big Five (TIPI)</h3>
+      <p class="hint">Percentiles sobre la escala 1-7 recodificada.</p>
+      ${P(t)}
+    </div>
+    <div class="card">
+      <h3>Perfil neuroqu\xEDmico</h3>
+      <p class="hint">Helen Fisher (FTI) y ejes de Cloninger.</p>
+      ${Ie(e.neurochemistry.axes)}
+      <h4>Car\xE1cter (TCI)</h4>
+      <div class="stat-row">
+        <div class="stat"><span>Autodirecci\xF3n</span><strong>${i.SD}</strong></div>
+        <div class="stat"><span>Cooperaci\xF3n</span><strong>${i.CO}</strong></div>
+        <div class="stat"><span>Autotrascendencia</span><strong>${i.ST}</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>C\xF3digo vocacional RIASEC \xB7 ${m(e.vocational.code)}</h3>
+    <p class="hint">Holland + inteligencias m\xFAltiples de Gardner.</p>
+    ${Te(e.vocational.riasec.scores)}
+    <h4>Inteligencias dominantes</h4>
+    ${P(e.vocational.top2.map(n=>({label:n.name,value:n.score})))}
+    ${P(e.vocational.gardner.ranking.slice(2,5).map(n=>({label:n.name,value:n.score})))}
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Canal de comunicaci\xF3n VAK</h3>
+      <p class="hint">Dominante: <strong>${m(e.channel.vak.dominantName)}</strong> \xB7 mezcla ${m(e.channel.vak.mix)}</p>
+      ${P(s)}
+      <p class="note">${m(e.channel.adaptation.toSelf)}</p>
+    </div>
+    <div class="card">
+      <h3>Estilo de conflicto (TKI)</h3>
+      <p class="hint">Dominante: <strong>${m(e.conflict.tki.styleName)}</strong></p>
+      ${P(e.conflict.tki.ranking.map(n=>({label:n.name,value:n.score})))}
+      <p class="note">${m(e.conflict.guide.tactic)}</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Matriz de temperamento (Littauer)</h3>
+    <p class="hint">${e.temperament.flatProfile?"Distribuci\xF3n plana: perfil polifac\xE9tico.":`Dominante ${m(e.temperament.dominantName)} \xB7 secundario ${m(e.temperament.secondaryName)}`}</p>
+    ${e.temperament.matrix.map(n=>`
+      <div class="bar">
+        <div class="bar-head"><span>${m(n.name)}</span><span>${n.strengths} F \xB7 ${n.weaknesses} D</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,n.total/20*100)}%"></div></div>
+      </div>`).join("")}
+    <div class="stat-row" style="margin-top:12px">
+      <div class="stat"><span>Ratio F/D</span><strong>${e.temperament.regulationRatio}</strong></div>
+      <div class="stat"><span>Regulaci\xF3n</span><strong>${Math.round(e.temperament.regulationIndex*100)}%</strong></div>
+      <div class="stat"><span>Marcas</span><strong>${e.temperament.matrix.reduce((n,o)=>n+o.total,0)}/40</strong></div>
+    </div>
+    <h4>Fortalezas reconocidas</h4>
+    <p class="hint">${e.temperament.strengths.map(m).join(" \xB7 ")||"\u2014"}</p>
+    <h4>Debilidades reconocidas</h4>
+    <p class="hint">${e.temperament.weaknesses.map(m).join(" \xB7 ")||"\u2014"}</p>
+    ${e.temperament.characterDeficit?'<p class="note warm">\xCDndice de regulaci\xF3n bajo: la matriz sugiere d\xE9ficit en Autodirecci\xF3n (SD) y Cooperaci\xF3n (CO). Es material de trabajo, no una condena.</p>':'<p class="note">Buena relaci\xF3n fortalezas/debilidades: tienes margen de autorregulaci\xF3n para sostener el plan.</p>'}
+  </div>
+
+  <div class="card">
+    <h3>Banderas de soporte neurodivergente y afectivo</h3>
+    <p class="hint">Cribados abreviados. Informaci\xF3n cl\xEDnica aislada y cifrada; nunca se env\xEDa a plataformas publicitarias.</p>
+    <div class="stat-row" style="margin-bottom:12px">
+      <div class="stat"><span>AQ-10</span><strong>${e.flags.aq10.score}/3</strong></div>
+      <div class="stat"><span>ASRS</span><strong>${e.flags.asrs.score}/12</strong></div>
+      <div class="stat"><span>CAT-Q masking</span><strong>${e.flags.catq.maskingIndex}%</strong></div>
+    </div>
+    <div class="stat-row">
+      ${pe(e.flags.aq10.flagged?"AQ-10 elevado":"AQ-10 en rango",e.flags.aq10.flagged?"clinic":"ok")}
+      ${pe(e.flags.asrs.flagged?"Carga ejecutiva alta":"Funci\xF3n ejecutiva estable",e.flags.asrs.flagged?"flag":"ok")}
+      ${pe(e.flags.highMasking?"Enmascaramiento alto":"Enmascaramiento bajo",e.flags.highMasking?"flag":"ok")}
+    </div>
+    <h4>L\xEDmites de esta informaci\xF3n</h4>
+    ${I(e.disclaimers,"dont-list")}
+  </div>`}function ca(e){return`
+  <p class="eyebrow">${m(e.title)}</p>
+  <div class="card">
+    <h3>Orientaci\xF3n vocacional y desarrollo profesional</h3>
+    <p class="hint">${m(e.vocational.headline)} \u2014 ${m(e.vocational.note)}</p>
+    ${e.vocational.careers.map(a=>`
+      <div class="career">
+        <div><strong>${m(a.name)}</strong><small>${m(a.why)}</small></div>
+        <span class="fit">${m(a.fit)}</span>
+      </div>`).join("")}
+  </div>
+
+  <div class="card">
+    <h3>Comunicaci\xF3n: tu palanca y tu riesgo</h3>
+    <p class="hint">${m(e.communication.adaptiveSelf)}</p>
+    <div class="stat-row" style="margin-bottom:12px">
+      <div class="stat"><span>Palanca</span><strong style="font-size:.85rem">${m(e.communication.playbook.lever)}</strong></div>
+    </div>
+    <p class="note warm"><strong>Vigila:</strong> ${m(e.communication.playbook.watchOut)}</p>
+    <h4>Guiones t\xE1cticos</h4>
+    ${I(e.communication.playbook.scripts)}
+    <h4>Micro-objetivo de la semana</h4>
+    <p class="hint">${m(e.communication.playbook.microGoal)}</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Adaptaci\xF3n al canal del otro</h3>
+      <p class="hint">Tu canal: ${m(e.communication.vakAdaptation.label)}</p>
+      <p>${m(e.communication.vakAdaptation.toOther)}</p>
+    </div>
+    <div class="card">
+      <h3>Tu sesgo de conflicto</h3>
+      <p class="hint">${m(e.communication.tki.style)}</p>
+      <p><strong>Fortaleza:</strong> ${m(e.communication.tki.strength)}</p>
+      <p><strong>Riesgo:</strong> ${m(e.communication.tki.risk)}</p>
+      <p class="note">${m(e.communication.tki.tactic)}</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Ventas y negociaci\xF3n: guion t\xE1ctico</h3>
+    ${I(e.sales)}
+  </div>
+
+  <div class="card">
+    <h3>Relaciones y v\xEDnculos</h3>
+    ${I(e.relations)}
+  </div>`}function la(e){return`
+  <p class="eyebrow">${m(e.title)}</p>
+  <div class="card">
+    <h3>${m(e.biotype)} \xB7 ${m(e.mizaj)}</h3>
+    <p class="hint">${m(e.framework)}</p>
+    <p class="note"><strong>${m(e.principle)}</strong></p>
+    <div class="do-dont" style="margin-top:14px">
+      <div class="card">
+        <h4>Prescribir (cualidad opuesta)</h4>
+        ${I(e.include,"do-list")}
+      </div>
+      <div class="card">
+        <h4>Retirar</h4>
+        ${I(e.exclude,"dont-list")}
+      </div>
+    </div>
+    <h4>Movimiento</h4>
+    <p class="hint">${m(e.exercise)}</p>
+    <h4>Sue\xF1o</h4>
+    <p class="hint">${m(e.sleep)}</p>
+    <h4>Protocolo de sanaci\xF3n del car\xE1cter</h4>
+    ${I(e.healing)}
+    <p class="note warm">${m(e.note)}</p>
+  </div>`}function da(e){return`
+  <p class="eyebrow">${m(e.title)}</p>
+  <div class="card">
+    <h3>Microh\xE1bitos de hoy</h3>
+    <p class="hint">${m(e.model)} \xB7 presupuesto ${e.minutesBudget} min/d\xEDa</p>
+    <div class="switch">
+      <p id="low-energy-copy"><strong>Versi\xF3n de d\xEDa de baja energ\xEDa</strong><br />Contrae cada h\xE1bito a su m\xEDnimo viable y mantiene la racha.</p>
+      <button class="toggle" id="low-energy-toggle" aria-pressed="false" aria-label="Activar versi\xF3n de baja energ\xEDa"></button>
+    </div>
+    <div id="habit-list">
+      ${e.habits.map(a=>`
+        <div class="habit" data-habit="${m(a.id)}">
+          <h4>${m(a.title)} <span class="badge ok">${a.minutes} min</span></h4>
+          <div class="recipe">
+            <div><b>Ancla</b><span>${m(a.details.anchor)}</span></div>
+            <div><b>Micro-acci\xF3n</b><span>\xAB${m(a.details.microAction)}\xBB</span></div>
+            <div><b>Celebraci\xF3n</b><span>${m(a.details.celebration)}</span></div>
+          </div>
+          <p class="hint" style="margin:10px 0 0">${m(a.rationale)}</p>
+        </div>`).join("")}
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Qu\xE9 hacer</h3>
+      ${I(e.doList,"do-list")}
+    </div>
+    <div class="card">
+      <h3>Qu\xE9 no hacer</h3>
+      ${I(e.dontList,"dont-list")}
+    </div>
+  </div>
+
+  ${e.media.length?`<div class="card">
+          <h3>Recursos para tu canal</h3>
+          <p class="hint">Filtrados por tu canal VAK y temperamento.</p>
+          ${e.media.map(a=>`
+            <div class="career">
+              <div><strong>${m(a.title)}</strong><small>${m(a.description||"")}</small></div>
+              <span class="fit">${m(a.kind)}</span>
+            </div>`).join("")}
+        </div>`:""}`}function ua(e=0){return`
+  <div class="card">
+    <h3>Registro de hoy</h3>
+    <p class="hint">Racha actual: <strong>${e} d\xEDa${e===1?"":"s"}</strong>. Reportar un d\xEDa bajo no rompe la racha: la contrae.</p>
+    <form id="checkin-form">
+      <label class="field"><span>\xC1nimo (1-5)</span>
+        <div class="mood-scale" data-scale="mood">
+          ${[1,2,3,4,5].map(a=>`<button type="button" data-val="${a}">${["Bajo","Flojo","Normal","Bien","Muy bien"][a-1]}</button>`).join("")}
+        </div>
+      </label>
+      <label class="field"><span>Energ\xEDa (1-5)</span>
+        <div class="mood-scale" data-scale="energy">
+          ${[1,2,3,4,5].map(a=>`<button type="button" data-val="${a}">${a}</button>`).join("")}
+        </div>
+      </label>
+      <label class="field"><span>Horas de sue\xF1o</span>
+        <input type="number" step="0.5" min="0" max="14" name="sleepHours" placeholder="7.5" />
+      </label>
+      <label class="field"><span>H\xE1bitos completados</span>
+        <input type="number" min="0" max="20" name="habitsDone" placeholder="0" />
+      </label>
+      <p id="checkin-msg" class="hint" hidden></p>
+      <button class="btn btn-primary btn-lg" type="submit">Guardar el d\xEDa</button>
+    </form>
+  </div>`}function ge(e,a,{streak:t=0}={}){let[s,i,n,o]=a.modules;e.innerHTML=`
+    <div class="res-hero">
+      <p class="eyebrow">Informe integrado \xB7 ${new Date(a.generatedAt).toLocaleDateString("es-VE",{day:"2-digit",month:"long",year:"numeric"})}</p>
+      <h2>${m(a.profileMeta.archetype)}</h2>
+      <p>${m(s.summary)}</p>
+      <span class="code">${m(a.profileMeta.code)}</span>
+    </div>
+
+    <nav class="tabs" id="report-tabs">
+      <button class="tab is-active" data-tab="A">Diagn\xF3stico</button>
+      <button class="tab" data-tab="B">Estrategia</button>
+      <button class="tab" data-tab="C">Dieta y vida</button>
+      <button class="tab" data-tab="D">H\xE1bitos</button>
+      <button class="tab" data-tab="T">Mi d\xEDa</button>
+    </nav>
+
+    <div class="tab-panel" data-panel="A">${ra(s)}</div>
+    <div class="tab-panel" data-panel="B" hidden>${ca(i)}</div>
+    <div class="tab-panel" data-panel="C" hidden>${la(n)}</div>
+    <div class="tab-panel" data-panel="D" hidden>${da(o)}</div>
+    <div class="tab-panel" data-panel="T" hidden>${ua(t)}</div>
+
+    <div class="actions-bar no-print">
+      <button class="btn btn-primary" id="download-pdf">Descargar PDF</button>
+      <button class="btn btn-ghost" id="restart-test">Repetir evaluaci\xF3n</button>
+    </div>
+    <p class="micro">${m(a.wellnessNotice)}</p>
+  `;let r=e.querySelectorAll(".tab");r.forEach(v=>{v.addEventListener("click",()=>{r.forEach(h=>h.classList.toggle("is-active",h===v)),e.querySelectorAll(".tab-panel").forEach(h=>{h.hidden=h.dataset.panel!==v.dataset.tab}),window.scrollTo({top:0,behavior:"smooth"})})});let d=e.querySelector("#low-energy-toggle"),l=e.querySelector("#habit-list"),u=!1,c=l.innerHTML;d?.addEventListener("click",()=>{u=!u,d.classList.toggle("on",u),d.setAttribute("aria-pressed",String(u)),l.innerHTML=u?o.habits.map(v=>`
+        <div class="habit">
+          <h4>${m(v.title)} <span class="badge flag">m\xEDnimo viable</span></h4>
+          <div class="recipe">
+            <div><b>Ancla</b><span>${m(v.lowEnergy.details.anchor)}</span></div>
+            <div><b>Micro-acci\xF3n</b><span>\xAB${m(v.lowEnergy.details.microAction)}\xBB</span></div>
+            <div><b>Celebraci\xF3n</b><span>${m(v.lowEnergy.details.celebration)}</span></div>
+          </div>
+        </div>`).join(""):c}),e.querySelector("#download-pdf")?.addEventListener("click",()=>{$.track("Report_Viewed","pdf_export"),window.print()}),e.querySelector("#restart-test")?.addEventListener("click",()=>{localStorage.removeItem("nexo_answers_v1"),window.location.reload()});let y=e.querySelector("#checkin-form");if(y){let v=0,h=0;e.querySelectorAll(".mood-scale").forEach(S=>{S.querySelectorAll("button").forEach(b=>{b.addEventListener("click",()=>{S.querySelectorAll("button").forEach(E=>E.classList.toggle("is-picked",E===b)),S.dataset.scale==="mood"?v=Number(b.dataset.val):h=Number(b.dataset.val)})})}),y.addEventListener("submit",async S=>{S.preventDefault();let b=e.querySelector("#checkin-msg");if(!v||!h){b.hidden=!1,b.textContent="Elige \xE1nimo y energ\xEDa para guardar.";return}let E=new FormData(y);try{let C=await $.logProgress({mood:v,energy:h,sleepHours:E.get("sleepHours")?Number(E.get("sleepHours")):null,habitsDone:Number(E.get("habitsDone")||0),habitsPlanned:o.habits.length});b.hidden=!1,b.textContent=C.message,$.track("Daily_Checkin",C.streak)}catch(C){b.hidden=!1,b.textContent=C.message}})}}var f=e=>document.querySelector(e),ma=["gate","intro","test","result"],ae="nexo_report_cache",A={status:null,streak:0,runner:null,lastAnswers:null};function w(e){ma.forEach(a=>{f(`#view-${a}`)?.classList.toggle("is-active",a===e)}),window.scrollTo({top:0,behavior:"auto"})}var pa=e=>new Promise(a=>setTimeout(a,e));async function Re(e,a){let t=f("#gate-error");t.hidden=!0;let s=f('#gate-form button[type="submit"]');s.disabled=!0,s.textContent="Verificando\u2026";try{await $.access(e,a||null,de()),A.status=await $.status(),te()}catch(i){t.hidden=!1,t.textContent=i.status===403||i.status===400?i.message:"No pudimos conectar con el servidor. Espera unos segundos y vuelve a intentar."}finally{s.disabled=!1,s.textContent="Entrar"}}f("#gate-form").addEventListener("submit",e=>{e.preventDefault(),Re(f("#invite-input").value.trim(),f("#name-input").value.trim())});function te(){let e=!!A.status?.hasProfile||!!localStorage.getItem(ae);f("#resume-report").hidden=!e;let a=f("#start-test");a.textContent=e?"Volver a hacer el test maestro":"Comenzar la evaluaci\xF3n",w("intro")}f("#start-test").addEventListener("click",async()=>{let e=f("#start-test");e.disabled=!0,e.textContent="Preparando\u2026";try{let{items:a}=await $.test();w("test"),$.track("Quiz_Started"),A.runner=new ee(f("#test-stage"),{onProgress:(t,s)=>{f("#step-counter").textContent=`${t} / ${s}`,f("#progress-fill").style.width=`${t/s*100}%`,f("#test-back").hidden=t<=1},onFinish:Me}),await A.runner.start(a)}catch(a){alert(`No pudimos cargar el test: ${a.message}`)}finally{e.disabled=!1,e.textContent="Comenzar la evaluaci\xF3n"}});f("#test-back").addEventListener("click",()=>A.runner?.go(-1));f("#resume-report").addEventListener("click",async()=>{let e=f("#result-root");e.innerHTML='<p class="hint" style="padding:40px 0">Cargando tu informe\u2026</p>',w("result");try{let{report:a}=await $.report();if(!a)throw new Error("sin informe");localStorage.setItem(ae,JSON.stringify(a)),we(a),$.track("Report_Viewed")}catch{let a=localStorage.getItem(ae);if(a)try{ge(e,JSON.parse(a),{streak:A.streak});return}catch{}e.innerHTML=`
+      <div class="card" style="margin-top:14vh">
+        <h3>No encontramos un informe guardado</h3>
+        <p class="hint">Puede que hayas entrado desde otro navegador o que la sesi\xF3n haya caducado. Haz el test maestro otra vez: son menos de 5 minutos.</p>
+        <div class="actions-bar"><button class="btn btn-primary" id="to-intro">Ir al test</button></div>
+      </div>`,f("#to-intro").addEventListener("click",te)}});function we(e,a=null){let t=f("#result-root");try{ge(t,e,{streak:A.streak})}catch(s){console.error("[informe] fallo al pintar:",s),t.innerHTML=`
+      <div class="card" style="margin-top:12vh">
+        <h3>Tu informe se gener\xF3, pero no se pudo mostrar aqu\xED</h3>
+        <p class="hint">El c\xE1lculo se complet\xF3 correctamente. Desc\xE1rgalo en formato de datos y lo revisamos.</p>
+        <div class="actions-bar">
+          <button class="btn btn-primary" id="download-report">Descargar informe</button>
+          <button class="btn btn-ghost" id="reload-app">Recargar la app</button>
+        </div>
+      </div>`,f("#download-report")?.addEventListener("click",()=>{let i=new Blob([JSON.stringify(e,null,2)],{type:"application/json"}),n=URL.createObjectURL(i),o=document.createElement("a");o.href=n,o.download="informe-nexo.json",o.click(),URL.revokeObjectURL(n)}),f("#reload-app")?.addEventListener("click",()=>window.location.reload())}}function _e(e=1,a=3){f("#test-stage").innerHTML=`
+    <div class="q-block" style="padding-top:16vh">
+      <p class="q-kicker">${e===1?"Procesando":`Reintentando (${e}/${a})`}</p>
+      <h2 class="q-title">Cruzando tus dos motores\u2026</h2>
+      <p class="q-helper">Sumando vectores, recodificando Big Five y ubicando tu temperamento. Tus respuestas est\xE1n guardadas en este dispositivo.</p>
+      <div class="progress" style="margin-top:18px"><div class="progress-fill" style="width:100%"></div></div>
+    </div>`}function ga(e,a){let t=Array.isArray(e.body?.details)?e.body.details:[],s=e.status===401,i=e.status===422;f("#test-stage").innerHTML=`
+    <div class="q-block" style="padding-top:10vh">
+      <p class="q-kicker">No pudimos generar el informe</p>
+      <h2 class="q-title">${i?"Faltan respuestas por completar":s?"Tu sesi\xF3n caduc\xF3":"No llegamos al servidor"}</h2>
+      <p class="q-helper">${i?"El servidor rechaz\xF3 el env\xEDo porque algunos \xEDtems quedaron incompletos.":s?"Vuelve a entrar con tu enlace de invitaci\xF3n y repite el test. Tus respuestas no se enviaron a nadie.":"El servidor no respondi\xF3 a tiempo. Tus respuestas siguen guardadas en este dispositivo: puedes reintentar sin repetir el test."}</p>
+      ${t.length?`<div class="card"><h4>Detalle</h4><ul>${t.map(n=>`<li>${n}</li>`).join("")}</ul></div>`:""}
+      ${!i&&!s&&e.message?`<p class="note warm">${e.message}</p>`:""}
+      <div class="stage-actions">
+        ${!i&&!s?'<button class="btn btn-primary" id="retry-submit">Reintentar env\xEDo</button>':""}
+        <button class="btn btn-ghost" id="review-answers">Revisar respuestas</button>
+      </div>
+      <button class="btn btn-ghost btn-lg" id="download-answers" style="margin-top:10px">Descargar mis respuestas</button>
+    </div>`,f("#retry-submit")?.addEventListener("click",()=>Me(a)),f("#review-answers")?.addEventListener("click",()=>{let n=A.runner?.firstUnansweredIndex?.()??-1;w("test"),n>-1?A.runner.jumpTo(n):A.runner?.render()}),f("#download-answers")?.addEventListener("click",()=>{let n=new Blob([JSON.stringify(a,null,2)],{type:"application/json"}),o=URL.createObjectURL(n),r=document.createElement("a");r.href=o,r.download="mis-respuestas-nexo.json",r.click(),URL.revokeObjectURL(o)})}async function Me(e){A.lastAnswers=e;let a=A.runner?.firstUnansweredIndex?.()??-1;if(a>-1){let s=A.runner.items[a];A.runner.jumpTo(a);let i=f(".q-helper");i&&(i.textContent=`Falta este \xEDtem (${a+1} de ${A.runner.items.length}) para generar tu informe.`);return}_e(1);let t=null;for(let s=1;s<=3;s+=1)try{let{report:i}=await $.submit(e);localStorage.removeItem("nexo_answers_v1");try{localStorage.setItem(ae,JSON.stringify(i))}catch{}$.track("Quiz_Completed"),A.status&&(A.status.hasProfile=!0),w("result"),we(i,e),$.track("Report_Viewed");return}catch(i){if(t=i,i.status===422||i.status===401||i.status===403)break;s<3&&(_e(s+1),await pa(900*s))}w("test"),ga(t||new Error("Error desconocido"),e)}async function ba(){try{A.status=await $.status()}catch{A.status={authenticated:!1,openAccess:!1}}let e=new URLSearchParams(window.location.search).get("invite");if(e&&!A.status.authenticated){f("#invite-input").value=e,await Re(e,null),window.history.replaceState({},"",window.location.pathname);return}if(A.status.authenticated)te();else if(A.status.openAccess)try{await $.access(null,null,de()),A.status=await $.status(),te()}catch{w("gate")}else w("gate")}ba();})();
+
+</script>
+</body>
+</html>

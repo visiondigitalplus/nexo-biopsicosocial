@@ -13,12 +13,19 @@
     "migrate": "node server/db/migrate.js",
     "seed": "node server/db/seed.js",
     "invite": "node scripts/create-invite.js",
-    "test": "node --test tests/"
+    "test": "node --test tests/",
+    "build:static": "node scripts/build-static.js",
+    "preview:static": "node scripts/serve-static.js",
+    "test:static": "node scripts/test-static.mjs",
+    "build": "node scripts/build-static.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "express": "^4.21.2",
-    "jsdom": "^29.1.1",
     "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2",
+    "jsdom": "^29.1.1"
   }
 }

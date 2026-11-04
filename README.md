@@ -128,6 +128,25 @@ El motor los suma (`server/engine/scoring.js`), normaliza a 0-100 respecto del m
 
 ---
 
+## 2.b Versión estática para GitHub Pages (sin servidor)
+
+La app también se compila como **sitio 100% estático**: mismo motor psicométrico, mismos 18 ítems y mismo informe, ejecutándose por completo en el navegador.
+
+```bash
+npm run build:static      # genera docs/ y nexo-app-standalone.html
+npm run preview:static    # revisa el sitio en http://localhost:4173
+npm run test:static       # prueba E2E del sitio (20 pantallas + informe)
+```
+
+| Salida | Qué es | Cómo se publica |
+|---|---|---|
+| `docs/` | Sitio completo (HTML + CSS + bundle de 86 KB) | GitHub Pages con `/docs` |
+| `nexo-app-standalone.html` | Todo en un archivo, sin servidor | Se abre con doble clic o se sube solo |
+
+Diferencias con la versión con servidor: no hay cuentas, ni invitaciones, ni base de datos; el informe y el registro diario se guardan en `localStorage` del propio dispositivo y nada se envía a ninguna parte.
+
+---
+
 ## 3. Esquema de base de datos
 
 | Tabla | Contenido |
