@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0c1f1a" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Nexo · Perfilado Neuro-Conductual</title>
+<link rel="stylesheet" href="/css/styles.css?v=4" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ============ GATE ============ -->
+  <section id="view-gate" class="view is-active">
+    <div class="gate">
+      <div class="brand">
+        <svg viewBox="0 0 48 48" class="brand-mark" aria-hidden="true">
+          <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".45"/>
+          <circle cx="24" cy="10" r="4.2" fill="currentColor"/>
+          <circle cx="36" cy="30" r="4.2" fill="currentColor" opacity=".75"/>
+          <circle cx="12" cy="30" r="4.2" fill="currentColor" opacity=".55"/>
+          <path d="M24 10 L36 30 L12 30 Z" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".5"/>
+        </svg>
+        <div>
+          <h1>Nexo</h1>
+          <p class="brand-sub">Perfilado Neuro-Conductual · Evaluación biopsicosocial</p>
+        </div>
+      </div>
+
+      <p class="lead">Acceso privado. Entra con el código que te compartieron: es tu llave, no necesitas crear contraseña.</p>
+
+      <form id="gate-form" class="gate-form" autocomplete="off">
+        <label class="field">
+          <span>Código de invitación</span>
+          <input id="invite-input" name="invite" type="text" inputmode="text" placeholder="pega tu código aquí" required />
+        </label>
+        <label class="field">
+          <span>¿Cómo te llamas? <em>(opcional)</em></span>
+          <input id="name-input" name="name" type="text" placeholder="Tu nombre" maxlength="60" />
+        </label>
+        <button class="btn btn-primary" type="submit">Entrar</button>
+        <p id="gate-error" class="error" role="alert" hidden></p>
+      </form>
+
+      <p class="micro">Tus respuestas de salud se guardan cifradas y separadas del resto. Nunca se comparten con plataformas publicitarias.</p>
+    </div>
+  </section>
+
+  <!-- ============ INTRO ============ -->
+  <section id="view-intro" class="view">
+    <div class="intro">
+      <p class="eyebrow">Tanda única de evaluación</p>
+      <h2 class="display">Un test maestro.<br />Dos motores. Un mapa de ti.</h2>
+      <p class="lead">18 reactivos, menos de 5 minutos. Cruzamos tu conducta observable con tu temperamento biológico para darte una ruta concreta, no un horóscopo.</p>
+
+      <div class="pillars">
+        <article class="pillar">
+          <h3>Motor psicotécnico</h3>
+          <p>VAK · Gardner · RIASEC · TKI · Big Five · cribados AQ-10, ASRS y CAT-Q.</p>
+        </article>
+        <article class="pillar">
+          <h3>Motor psicobiológico</h3>
+          <p>Temperamentos hipocráticos · Ejes de Eysenck · Cloninger TCI · Fisher FTI · matriz Littauer.</p>
+        </article>
+        <article class="pillar">
+          <h3>Salida accionable</h3>
+          <p>Informe con vocación, comunicación, dietoterapia Unani y microhábitos con versión de baja energía.</p>
+        </article>
+      </div>
+
+      <ul class="facts">
+        <li><strong>~5 min</strong><span>avance automático</span></li>
+        <li><strong>18</strong><span>reactivos</span></li>
+        <li><strong>4</strong><span>módulos de informe</span></li>
+      </ul>
+
+      <button id="start-test" class="btn btn-primary btn-lg">Comenzar la evaluación</button>
+      <button id="resume-report" class="btn btn-ghost" hidden>Ver mi informe anterior</button>
+      <p class="micro">Herramienta de bienestar y autoconocimiento. No sustituye diagnóstico ni tratamiento clínico.</p>
+    </div>
+  </section>
+
+  <!-- ============ TEST ============ -->
+  <section id="view-test" class="view">
+    <header class="test-bar">
+      <div class="test-bar-inner">
+        <button id="test-back" class="icon-btn" aria-label="Atrás" hidden>
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+        </button>
+        <div class="progress" aria-hidden="true"><div id="progress-fill" class="progress-fill"></div></div>
+        <span id="step-counter" class="step-counter">1 / 20</span>
+      </div>
+    </header>
+    <main id="test-stage" class="stage" aria-live="polite"></main>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="view-result" class="view">
+    <div id="result-root" class="results"></div>
+  </section>
+
+  <footer class="foot">
+    <span>Nexo · bienestar integral</span>
+    <span class="dot">·</span>
+    <a href="/admin.html">Backoffice</a>
+  </footer>
+</div>
+
+<script type="module" src="/js/app.js?v=4"></script>
+</body>
+</html>
