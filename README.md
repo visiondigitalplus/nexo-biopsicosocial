@@ -1,5 +1,7 @@
 # Nexo · Plataforma integrada de evaluación biopsicosocial
 
+**Sitio en vivo:** https://visiondigitalplus.github.io/nexo-biopsicosocial/
+
 Aplicación web (mobile-first) que ejecuta una **tanda única de evaluación — Test Maestro de 18 ítems** — y cruza, con la misma jerarquía, dos marcos:
 
 1. **Motor psicotécnico y conductual:** VAK, Inteligencias Múltiples de Gardner, RIASEC (Holland), TKI (Thomas-Kilmann), Big Five (TIPI) y cribados abreviados AQ-10 / ASRS / CAT-Q.
@@ -141,6 +143,7 @@ npm run test:static       # prueba E2E del sitio (20 pantallas + informe)
 | Salida | Qué es | Cómo se publica |
 |---|---|---|
 | `docs/` | Sitio completo (HTML + CSS + bundle de 86 KB) | GitHub Pages con `/docs` |
+| raíz (`index.html`, `css/`, `js/`, `assets/`) | Copia publicable que genera el build | GitHub Pages sirviendo desde `/` (configuración actual) |
 | `nexo-app-standalone.html` | Todo en un archivo, sin servidor | Se abre con doble clic o se sube solo |
 
 Diferencias con la versión con servidor: no hay cuentas, ni invitaciones, ni base de datos; el informe y el registro diario se guardan en `localStorage` del propio dispositivo y nada se envía a ninguna parte.
