@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Nexo · Backoffice</title>
+<link rel="stylesheet" href="/css/styles.css" />
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<style>
+  .admin { padding: 34px 0 60px; }
+  .token-row { display: flex; gap: 8px; }
+  .token-row input { flex: 1; }
+  table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-faint); }
+  code.link { font-size: .76rem; background: var(--paper-2); padding: .3em .5em; border-radius: 6px; word-break: break-all; display: inline-block; }
+  .row-form { display: grid; gap: 10px; grid-template-columns: 1fr 90px 90px auto; align-items: end; }
+  @media (max-width: 620px) { .row-form { grid-template-columns: 1fr 1fr; } .row-form button { grid-column: span 2; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="admin">
+    <p class="eyebrow">Backoffice</p>
+    <h2 class="display" style="font-size:1.6rem">Control de accesos y embudo</h2>
+    <p class="hint">Genera y revoca enlaces privados. Cada enlace es una llave personal.</p>
+
+    <div class="card" style="margin-top:18px">
+      <label class="field"><span>Token de administración</span></label>
+      <div class="token-row">
+        <input id="token" type="password" placeholder="ADMIN_TOKEN" />
+        <button class="btn btn-primary" id="save-token">Entrar</button>
+      </div>
+      <p class="micro" id="admin-msg"></p>
+    </div>
+
+    <div class="card" id="metrics-card" hidden>
+      <h3>Métricas</h3>
+      <div class="stat-row" id="metrics"></div>
+    </div>
+
+    <div class="card" id="invites-card" hidden>
+      <h3>Enlaces de acceso</h3>
+      <div class="row-form" style="margin:14px 0">
+        <label class="field"><span>Para quién</span><input id="inv-label" placeholder="Nombre" /></label>
+        <label class="field"><span>Usos</span><input id="inv-uses" type="number" min="1" value="1" /></label>
+        <label class="field"><span>Días</span><input id="inv-days" type="number" min="1" placeholder="—" /></label>
+        <button class="btn btn-primary" id="create-invite">Crear enlace</button>
+      </div>
+      <table>
+        <thead><tr><th>Persona</th><th>Enlace</th><th>Usos</th><th></th></tr></thead>
+        <tbody id="invites-body"></tbody>
+      </table>
+    </div>
+
+    <p class="micro"><a href="/">← Volver a la app</a></p>
+  </div>
+</div>
+<script type="module" src="/js/admin.js"></script>
+</body>
+</html>
