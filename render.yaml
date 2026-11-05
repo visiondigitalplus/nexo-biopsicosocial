@@ -9,8 +9,7 @@
 # visiondigitalplus/nexo-biopsicosocial y confirma. Render lee este archivo y
 # hace el resto. No hay que escribir comandos.
 #
-# Nota sobre la carpeta: el proyecto Node vive en `psicobiosocial/`, asi que
-# todas las rutas empiezan por ahi (rootDir).
+# Nota: este repositorio tiene el proyecto en la raiz, por eso rootDir = ".".
 # =============================================================================
 services:
   - type: web
@@ -18,7 +17,7 @@ services:
     runtime: node
     plan: free
     region: oregon
-    rootDir: psicobiosocial
+    rootDir: .
     buildCommand: npm ci || npm install
     # El arranque aplica el esquema y la semilla por si mismo (idempotente).
     startCommand: node scripts/wait-for-db.js && node server/index.js
