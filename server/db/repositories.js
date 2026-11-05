@@ -5,6 +5,20 @@ import { decryptJson, encryptJson, inviteCode } from '../lib/crypto.js';
  * Repositorios: unica capa que conoce nombres de tablas.
  * Todos los metodos son agnosticos del driver (PostgreSQL o archivo).
  */
+/**
+ * Orden natural de los items: bloque, luego posicion. La posicion es texto
+ * ('1', '12a', '12b', '13'), asi que se compara por el numero inicial y, si
+ * coincide, por el sufijo. Evita que '12a' caiga despues de '13'.
+ */
+export function compareItems(a, b) {
+  const byBlock = Number(a.block) - Number(b.block);
+  if (byBlock !== 0) return byBlock;
+  const na = parseInt(String(a.position), 10);
+  const nb = parseInt(String(b.position), 10);
+  if (Number.isFinite(na) && Number.isFinite(nb) && na !== nb) return na - nb;
+  return String(a.position).localeCompare(String(b.position), 'es', { numeric: true });
+}
+
 export function createRepositories(driver) {
   const nowIso = () => new Date().toISOString();
 
@@ -75,10 +89,11 @@ export function createRepositories(driver) {
   const items = {
     async listActive() {
       const rows = await driver.select('assessment_items', { is_active: true }, { orderBy: 'position' });
-      return rows.sort((a, b) => Number(a.block) - Number(b.block) || Number(a.position) - Number(b.position));
+      return rows.sort(compareItems);
     },
     async listAll() {
-      return driver.select('assessment_items', {}, { orderBy: 'position' });
+      const rows = await driver.select('assessment_items', {}, { orderBy: 'position' });
+      return rows.sort(compareItems);
     },
     async vectors() {
       return driver.select('option_weight_vectors', {});

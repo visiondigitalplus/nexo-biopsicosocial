@@ -11,6 +11,16 @@ La salida es un **informe integrado de 4 módulos** (Diagnóstico · Estrategia 
 
 ---
 
+
+## Dos formas de usarlo
+
+| Versión | Enlace | Para qué |
+|---|---|---|
+| **Pública** (GitHub Pages) | <https://visiondigitalplus.github.io/nexo-biopsicosocial/> | Compartir la app. El informe se calcula y se queda en el navegador de cada persona. Sin servidor. |
+| **Privada** (servidor + PostgreSQL) | Ver [`DESPLIEGUE-PRIVADO.md`](DESPLIEGUE-PRIVADO.md) | Personas reales con invitación personal, registro diario guardado, tabla clínica cifrada y backoffice. |
+
+Ambas usan el **mismo motor psicométrico** (`server/engine/`) y producen el **mismo informe de cuatro módulos**.
+
 ## 1. Arranque rápido
 
 ```bash

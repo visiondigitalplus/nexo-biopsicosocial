@@ -1,0 +1,58 @@
+# =============================================================================
+# Despliegue PRIVADO de un clic en Render (https://render.com)
+#
+# Que crea:
+#   1. Una base de datos PostgreSQL gratuita (nexo-db)
+#   2. El servicio web privado (nexo-privado) con HTTPS incluido
+#
+# Como usarlo: en Render > New > Blueprint > conecta el repositorio
+# visiondigitalplus/nexo-biopsicosocial y confirma. Render lee este archivo y
+# hace el resto. No hay que escribir comandos.
+#
+# Nota sobre la carpeta: el proyecto Node vive en `psicobiosocial/`, asi que
+# todas las rutas empiezan por ahi (rootDir).
+# =============================================================================
+services:
+  - type: web
+    name: nexo-privado
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: psicobiosocial
+    buildCommand: npm ci || npm install
+    # El arranque aplica el esquema y la semilla por si mismo (idempotente).
+    startCommand: node scripts/wait-for-db.js && node server/index.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Acceso SOLO con enlace de invitacion (la puerta queda activa).
+      - key: OPEN_ACCESS
+        value: "false"
+      # Render inyecta la cadena de conexion de la base creada abajo.
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nexo-db
+          property: connectionString
+      # SSL obligatorio hacia la base gestionada.
+      - key: PGSSL
+        value: "true"
+      # Secretos que Render genera solo (no hay que inventarlos).
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: CLINICAL_ENCRYPTION_KEY
+        generateValue: true
+      - key: ADMIN_TOKEN
+        generateValue: true
+      # La URL publica la pone Render automaticamente; se usa para armar los
+      # enlaces de invitacion que muestra el backoffice.
+      - key: PUBLIC_BASE_URL
+        sync: false
+
+databases:
+  - name: nexo-db
+    plan: free
+    region: oregon
+    databaseName: nexo
+    user: nexo

@@ -13,7 +13,8 @@ services:
       retries: 10
 
   app:
-    build: .
+    build:
+      context: .
     depends_on:
       db:
         condition: service_healthy
@@ -28,7 +29,11 @@ services:
       PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:3000}
     ports:
       - "3000:3000"
-    command: sh -c "node server/db/migrate.js && node server/db/seed.js && node server/index.js"
+    command: >
+      sh -c "node scripts/wait-for-db.js &&
+             node server/db/migrate.js &&
+             node server/db/seed.js &&
+             node server/index.js"
 
 volumes:
   pgdata:

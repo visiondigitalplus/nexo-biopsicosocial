@@ -28,7 +28,8 @@ progressRouter.post('/progress', requireSession, rateLimit({ max: 30 }), async (
   res.json({
     log,
     history,
-    streak: log.streak,
+    // upsertLog devuelve la fila cruda del driver: la racha viene en snake_case
+    streak: Number(log.streak ?? log.streak_count ?? 0),
     lowEnergyApplied: Boolean(lowEnergy) || Number(energy) <= 2,
     message:
       Boolean(lowEnergy) || Number(energy) <= 2

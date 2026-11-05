@@ -17,7 +17,11 @@
     "build:static": "node scripts/build-static.js",
     "preview:static": "node scripts/serve-static.js",
     "test:static": "node scripts/test-static.mjs",
-    "build": "node scripts/build-static.js"
+    "build": "node scripts/build-static.js",
+    "wait-db": "node scripts/wait-for-db.js",
+    "release": "node scripts/wait-for-db.js && node server/db/migrate.js && node server/db/seed.js",
+    "smoke": "node scripts/smoke-server.mjs",
+    "debug:db": "node --input-type=module -e \"import(\"./server/db/index.js\").then(async m=>{const {driver}=await m.getDb();console.log(await driver.select(\"access_invites\",{}));process.exit(0)})\""
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",

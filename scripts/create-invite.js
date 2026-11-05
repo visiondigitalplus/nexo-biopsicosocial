@@ -13,7 +13,8 @@ const expiresAt = days ? new Date(Date.now() + Number(days) * 86400_000).toISOSt
 const invite = await repos.invites.create({ label, maxUses: Number(uses), expiresAt });
 
 console.log('\nEnlace privado generado:\n');
-console.log(`  ${config.publicBaseUrl}/?invite=${invite.code}\n`);
+const base = (process.env.PUBLIC_BASE_URL || config.publicBaseUrl || 'http://localhost:3000').replace(/\/$/, '');
+console.log(`  ${base}/?invite=${invite.code}\n`);
 console.log(`  Para: ${label} · usos: ${uses}${days ? ` · expira en ${days} días` : ''}`);
 console.log('  Comparte solo con la persona indicada. Revócalo en /admin si se filtra.\n');
 process.exit(0);

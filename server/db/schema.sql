@@ -37,9 +37,11 @@ CREATE INDEX IF NOT EXISTS users_utm_idx ON users USING GIN (utm);
 CREATE TABLE IF NOT EXISTS assessment_items (
   id            TEXT PRIMARY KEY,              -- 'SIT_01', 'TIPI_03', 'LIT_S_01'
   block         SMALLINT NOT NULL CHECK (block BETWEEN 1 AND 3),
-  position      INTEGER NOT NULL,
+  -- Orden de presentacion dentro del bloque. TEXT porque el catalogo intercala
+  -- sub-items: '12a' y '12b' van entre el 12 y el 13.
+  position      TEXT NOT NULL,
   kind          TEXT NOT NULL
-                CHECK (kind IN ('situational','likert','binary','multi','choice','text','adjective')),
+                CHECK (kind IN ('situational','likert','binary','multi','choice','text','adjective','scale4')),
   dimension     TEXT,                          -- 'VAK','GARDNER','RIASEC','TKI','TIPI','AQ10','ASRS','CATQ'
   prompt        TEXT NOT NULL,
   helper        TEXT,
@@ -54,6 +56,18 @@ CREATE TABLE IF NOT EXISTS assessment_items (
   updated_at    TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS assessment_items_block_idx ON assessment_items (block, position) WHERE is_active;
+
+-- Compatibilidad con instalaciones creadas antes: position paso de INTEGER a TEXT
+-- para admitir '12a'/'12b' (funciona igual si la columna ya es TEXT).
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name = 'assessment_items' AND column_name = 'position' AND data_type <> 'text'
+  ) THEN
+    ALTER TABLE assessment_items ALTER COLUMN position TYPE TEXT USING position::text;
+  END IF;
+END $$;
 
 -- ---------------------------------------------------------------------------
 -- 3. option_weight_vectors: vector multirrasgo por opcion (JSONB)
@@ -151,11 +165,28 @@ CREATE TABLE IF NOT EXISTS habit_prescriptions (
   fogg_recipe   JSONB NOT NULL DEFAULT '{}'::jsonb,
   low_energy_recipe JSONB NOT NULL DEFAULT '{}'::jsonb,
   rationale     TEXT,
-  minutes       SMALLINT NOT NULL DEFAULT 5,
+  -- 0 = la prescripcion no se mide en minutos (planes de dieta)
+  minutes       SMALLINT NOT NULL DEFAULT 5 CHECK (minutes >= 0),
   payload       JSONB NOT NULL DEFAULT '{}'::jsonb,  -- prescripcion dietetica, guion, etc.
   is_active     BOOLEAN NOT NULL DEFAULT TRUE,
   created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+-- Compatibilidad con instalaciones creadas antes: minutes acepta 0 (dietas Unani).
+DO $$
+DECLARE cname TEXT;
+BEGIN
+  SELECT conname INTO cname FROM pg_constraint
+   WHERE conrelid = 'habit_prescriptions'::regclass AND contype = 'c'
+     AND pg_get_constraintdef(oid) LIKE '%minutes%';
+  IF cname IS NOT NULL AND NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conrelid = 'habit_prescriptions'::regclass AND pg_get_constraintdef(oid) LIKE '%minutes >= 0%'
+  ) THEN
+    EXECUTE format('ALTER TABLE habit_prescriptions DROP CONSTRAINT %I', cname);
+    ALTER TABLE habit_prescriptions ADD CONSTRAINT habit_prescriptions_minutes_check CHECK (minutes >= 0);
+  END IF;
+END $$;
+
 CREATE INDEX IF NOT EXISTS habit_prescriptions_lookup_idx
   ON habit_prescriptions (temperament, category) WHERE is_active;
 

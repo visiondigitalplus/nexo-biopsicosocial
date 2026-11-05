@@ -7,6 +7,13 @@ export const adminRouter = Router();
 
 adminRouter.use(requireAdmin);
 
+/** URL publica efectiva: variable de entorno o la que el host reporta. */
+function baseUrl(req) {
+  if (config.publicBaseUrl && !/localhost|127\.0\.0\.1/.test(config.publicBaseUrl)) return config.publicBaseUrl.replace(/\/$/, '');
+  const proto = String(req.headers['x-forwarded-proto'] || req.protocol || 'https').split(',')[0].trim();
+  return `${proto}://${req.get('host')}`;
+}
+
 /** Metricas agregadas del embudo (sin datos clinicos). */
 adminRouter.get('/metrics', async (req, res) => {
   const { repos } = await getDb();
@@ -47,7 +54,7 @@ adminRouter.get('/invites', async (req, res) => {
       maxUses: i.max_uses,
       revoked: i.revoked,
       expiresAt: i.expires_at,
-      link: `${config.publicBaseUrl}/?invite=${i.code}`,
+      link: `${baseUrl(req)}/?invite=${i.code}`,
     })),
   });
 });
@@ -57,7 +64,7 @@ adminRouter.post('/invites', async (req, res) => {
   const { repos } = await getDb();
   const expiresAt = days ? new Date(Date.now() + Number(days) * 86400_000).toISOString() : null;
   const invite = await repos.invites.create({ label, maxUses: Number(maxUses), expiresAt });
-  res.json({ invite, link: `${config.publicBaseUrl}/?invite=${invite.code}` });
+  res.json({ invite, link: `${baseUrl(req)}/?invite=${invite.code}` });
 });
 
 adminRouter.post('/invites/:id/revoke', async (req, res) => {

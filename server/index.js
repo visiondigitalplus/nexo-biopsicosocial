@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import { config } from './config.js';
 import { getDb } from './db/index.js';
 import { seed } from './db/seed.js';
+import { migrate } from './db/migrate.js';
 import { accessRouter } from './routes/access.js';
 import { assessmentRouter } from './routes/assessment.js';
 import { progressRouter, trackingRouter } from './routes/progress.js';
@@ -70,6 +71,11 @@ app.use((err, req, res, next) => {
 });
 
 async function boot() {
+  // Despliegue de un clic: el esquema y la semilla se aplican solos si faltan.
+  // Ambos son idempotentes, asi que reiniciar no duplica nada.
+  if (config.databaseUrl) {
+    await migrate({ quiet: true });
+  }
   const { repos } = await getDb();
   const items = await repos.items.listAll();
   if (items.length === 0) {
@@ -78,6 +84,10 @@ async function boot() {
     if (summary.inviteCode) {
       console.log(`[boot] Enlace de acceso inicial: ${config.publicBaseUrl}/?invite=${summary.inviteCode}`);
     }
+  }
+  if (config.isProd) {
+    const weak = !process.env.SESSION_SECRET || !process.env.CLINICAL_ENCRYPTION_KEY;
+    if (weak) console.warn('[boot] Faltan SESSION_SECRET o CLINICAL_ENCRYPTION_KEY: define ambas antes de dar el servicio a terceros.');
   }
   app.listen(config.port, '0.0.0.0', () => {
     console.log(`[nexo] Escuchando en http://0.0.0.0:${config.port} (${config.isProd ? 'producción' : 'desarrollo'})`);

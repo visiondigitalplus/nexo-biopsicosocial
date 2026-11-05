@@ -77,6 +77,19 @@ const MEDIA_SEED = [
   },
 ];
 
+/**
+ * El catalogo usa codigos cortos (S, C, M, F, 'any') y el esquema guarda el
+ * nombre completo en sus CHECK. Se normaliza en un solo lugar.
+ */
+const TEMPERAMENT_NAME = {
+  S: 'sanguineo',
+  C: 'colerico',
+  M: 'melancolico',
+  F: 'flematico',
+  any: 'any',
+};
+const temperamentName = (code) => TEMPERAMENT_NAME[code] || code;
+
 export async function seed({ quiet = false } = {}) {
   const { repos } = await getDb();
   const log = (...args) => !quiet && console.log(...args);
@@ -87,7 +100,7 @@ export async function seed({ quiet = false } = {}) {
     await repos.items.upsertItem({
       id: item.id,
       block: item.block,
-      position: String(item.position),
+      position: String(item.position), // '12a'/'12b' incluidos: la columna es TEXT
       kind: item.kind,
       dimension: item.dimension,
       prompt: item.prompt,
@@ -119,7 +132,7 @@ export async function seed({ quiet = false } = {}) {
   for (const habit of HABIT_CATALOG) {
     await repos.habits.upsert({
       id: habit.id,
-      temperament: habit.bio === 'any' ? 'any' : { S: 'sanguineo', C: 'colerico', M: 'melancolico', F: 'flematico' }[habit.bio],
+      temperament: temperamentName(habit.bio),
       category: 'microhabit',
       vak_channel: habit.vak,
       title: habit.title,
@@ -133,7 +146,7 @@ export async function seed({ quiet = false } = {}) {
     habits += 1;
   }
   for (const [bio, plan] of Object.entries(DIET_PLANS)) {
-    const temperament = { S: 'sanguineo', C: 'colerico', M: 'melancolico', F: 'flematico' }[bio];
+    const temperament = temperamentName(bio);
     await repos.habits.upsert({
       id: `DIET_${bio}_IN`,
       temperament,
@@ -168,7 +181,11 @@ export async function seed({ quiet = false } = {}) {
   const existingMedia = await repos.media.listActive();
   for (const asset of MEDIA_SEED) {
     if (existingMedia.some((m) => m.title === asset.title)) continue;
-    await repos.media.upsert({ ...asset, is_active: true });
+    await repos.media.upsert({
+      ...asset,
+      temperament: temperamentName(asset.temperament),
+      is_active: true,
+    });
     media += 1;
   }
 

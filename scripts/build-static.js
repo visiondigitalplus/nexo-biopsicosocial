@@ -84,7 +84,18 @@ const standalonePath = path.join(ROOT, 'nexo-app-standalone.html');
 fs.writeFileSync(standalonePath, standalone);
 log(`standalone: ${(fs.statSync(standalonePath).size / 1024).toFixed(1)} KB`);
 
-/* 8. Limpieza */
+/* 8. Copia publicable en la raíz del repo (GitHub Pages sirve desde /) */
+const PUBLISH = ['index.html', '404.html', '.nojekyll'];
+for (const file of PUBLISH) fs.copyFileSync(path.join(DOCS, file), path.join(ROOT, file));
+for (const dir of ['css', 'js', 'assets']) {
+  fs.mkdirSync(path.join(ROOT, dir), { recursive: true });
+  for (const file of fs.readdirSync(path.join(DOCS, dir))) {
+    fs.copyFileSync(path.join(DOCS, dir, file), path.join(ROOT, dir, file));
+  }
+}
+log('copia publicable actualizada en la raíz (index.html, css/, js/, assets/)');
+
+/* 9. Limpieza */
 fs.rmSync(TMP, { recursive: true, force: true });
 
 const totalFiles = (dir) =>

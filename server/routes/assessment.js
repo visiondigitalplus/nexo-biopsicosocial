@@ -7,7 +7,12 @@ import { rateLimit, requireSession, setSession } from './session.js';
 
 export const assessmentRouter = Router();
 
-const CLINICAL_ITEM_IDS = ['SCR_12', 'SCR_13', 'SCR_14', 'TRG_15', 'TRG_16'];
+/**
+ * Items cuyo contenido NO se guarda en la tabla psicometrica: viajan cifrados
+ * en la tabla clinica segregada. TRG_17 (foco) y TRG_18 (compromiso) tambien
+ * son material de trabajo personal y ya van dentro del payload cifrado.
+ */
+const CLINICAL_ITEM_IDS = ['SCR_12', 'SCR_13', 'SCR_14', 'TRG_15', 'TRG_16', 'TRG_17', 'TRG_18'];
 
 /** Catalogo publico del test: items y opciones, SIN los vectores de pesos. */
 assessmentRouter.get('/test', async (req, res) => {
@@ -33,7 +38,7 @@ assessmentRouter.get('/test', async (req, res) => {
         return o;
       }),
     }))
-    .sort((a, b) => a.block - b.block || String(a.position).localeCompare(String(b.position)));
+    .sort((a, b) => a.block - b.block || String(a.position).localeCompare(String(b.position), 'es', { numeric: true }));
   res.json({ items: payload, meta: { total: payload.length, estimatedMinutes: 5 } });
 });
 

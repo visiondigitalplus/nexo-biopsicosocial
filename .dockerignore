@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.local
+data/*.json
+data/*.db
+*.log
+.git/
+.github/
+docs/
+nexo-sitio-web.zip
+nexo-app-standalone.html
+tests/
+coverage/
+.venv/
